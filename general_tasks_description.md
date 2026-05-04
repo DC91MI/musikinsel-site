@@ -1,27 +1,28 @@
-# Artifact-First Agentic Scientific Workflow Framework
+# Artifact-First Static Web Workflow Framework
 
 ## Overview
 
-This framework defines a structured approach to developing scientific software, benchmarking, data science, and machine learning projects using AI-assisted workflows.
+This framework defines a structured approach to developing simple websites with AI assistance. It is designed for projects that are mostly static or fully static: HTML pages, CSS, assets, and only light JavaScript.
 
 It integrates:
-- Structured context engineering (folder-based workflows)
-- Artifact-driven development
-- Controlled use of AI agents
-- Iterative review and convergence
-- Minimal but effective instruction design
+- structured context engineering through workspaces
+- artifact-driven planning and delivery
+- controlled use of AI agents
+- iterative review and convergence
+- light governance without heavy process
 
 The goal is to maximize:
 - **clarity**
 - **traceability**
 - **reviewability**
-- **reproducibility**
+- **maintainability**
 - **useful automation**
 
 while avoiding:
-- excessive orchestration complexity
-- hidden system state
-- over-reliance on prompts or agent personalities
+- hidden project state
+- overbuilt infrastructure
+- unnecessary framework complexity
+- generic status reporting that does not move real artifacts forward
 
 ---
 
@@ -36,18 +37,18 @@ while avoiding:
 
 ### 1. Artifact-Centered Development
 
-Artifacts are the primary outputs of the system.  
-Each meaningful step in the project produces or updates an artifact.
+Artifacts are the primary outputs of the system.
+Each meaningful step in the project creates or updates something durable.
 
 Examples:
-- problem brief
-- dataset documentation
-- exploratory analysis summaries
-- experiment plans
-- run summaries
-- error analyses
-- benchmark cards
-- stakeholder reports
+- problem statement
+- site map
+- page inventory
+- copy deck
+- design tokens
+- QA checklist
+- launch checklist
+- HTML, CSS, image, and JavaScript files
 
 Artifacts are:
 - human-readable
@@ -66,37 +67,34 @@ Each workspace:
 - has clear objectives
 - produces specific artifacts
 
-Workspaces act as **context boundaries** that limit what the AI needs to consider.
+This keeps the active context narrow. A page copy task should not drag in deployment decisions unless those decisions matter.
 
 ---
 
 ### 3. Minimal Global Instructions
 
-A root instruction file (e.g., `AGENTS.md` or `CLAUDE.md`) provides:
-
+A root instruction file such as `CLAUDE.md` provides:
 - project identity
 - workspace map
-- core commands
 - essential constraints
+- default quality expectations
 
 It should:
-- be concise
-- avoid redundancy
-- act as a routing layer, not a knowledge base
+- stay concise
+- avoid repeated detail
+- route the agent to the right workspace rather than trying to contain the whole project
 
 ---
 
-### 4. Localized Context (Per Workspace)
+### 4. Localized Context Per Workspace
 
 Each workspace contains a `CONTEXT.md` file defining:
-
 - purpose of the workspace
 - expected outputs
-- evaluation criteria
-- relevant files
-- common pitfalls
+- definition of done
+- relevant quality checks
 
-This is where detailed guidance lives.
+Detailed guidance lives close to the artifacts it controls.
 
 ---
 
@@ -105,79 +103,75 @@ This is where detailed guidance lives.
 AI is used in clearly defined roles:
 
 #### Maker
-- Generates code, analysis, or artifacts
-- Performs implementation and iteration
+- writes or edits artifacts
+- implements the site
+- updates supporting documentation
 
-#### Reviewer(s)
-- Critiques outputs
-- Identifies issues and improvements
-- Evaluates correctness, clarity, and completeness
+#### Reviewer
+- critiques the current state
+- identifies regressions, ambiguity, and missing checks
+- focuses on accessibility, responsiveness, performance, clarity, and scope
 
 #### Synthesizer
-- Merges multiple reviews
-- Produces structured conclusions
-- Distinguishes between agreement, disagreement, and uncertainty
+- merges review findings
+- distinguishes between clear issues and optional improvements
+- records a workable next step
 
 ---
 
 ### 6. Convergent Review Process
 
-Instead of accumulating opinions, the system enforces convergence:
+The framework favors convergence over collecting opinions:
 
-1. Output is produced
-2. Independent reviews are performed
-3. Reviews are merged into structured categories:
+1. Work is produced
+2. Reviews are performed
+3. Feedback is grouped into:
    - agreed issues
-   - disagreements
-   - improvements
-4. Disagreements are resolved through evidence
-5. Final decisions are recorded
+   - open questions
+   - actionable fixes
+4. Decisions are recorded
+5. The next artifact update is scoped clearly
 
 ---
 
-### 7. Skills (Reusable Workflows)
+### 7. Skills and Reusable Checklists
 
-Skills represent repeatable processes with defined inputs and outputs.
+Reusable workflows help keep site work consistent.
 
 Examples:
-- exploratory data analysis checklist
-- experiment review
-- error analysis
-- notebook-to-report transformation
-- regression testing
+- page launch checklist
+- accessibility pass
+- responsive layout review
+- asset handoff checklist
+- content import workflow
 
-Skills:
-- reduce prompt variability
-- standardize workflows
-- improve consistency
+These reduce prompt drift and keep site work reviewable.
 
 ---
 
-### 8. Selective Tool Integration (MCP)
+### 8. Selective Tool Integration
 
-External tools are used only when necessary.
+External tools are optional and should be introduced only when helpful.
 
-Typical use cases:
-- experiment tracking systems
-- data warehouses
-- documentation platforms
+Typical examples:
+- hosting dashboards
+- analytics platforms
+- asset libraries
+- CMS exports
 - issue trackers
 
-The repository remains the primary source of truth.
+The repository remains the primary source of truth for project decisions and artifacts.
 
 ---
 
 ### 9. Version-Controlled Development
 
 All artifacts and code are:
-- stored in version control (e.g., Git)
+- stored in Git
 - diffable
 - reviewable over time
 
-Git acts as:
-- memory
-- audit trail
-- comparison system
+Git becomes the project memory and audit trail.
 
 ---
 
@@ -185,85 +179,125 @@ Git acts as:
 
 The framework is composed of five layers:
 
-### Layer 1 — Project Operating System
+### Layer 1 - Project Operating System
 - root instructions
 - workspace definitions
 - naming conventions
-- core commands
+- review expectations
 
-### Layer 2 — Workspaces
-- structured folders
-- localized context
-- task-specific environments
+### Layer 2 - Workspaces
+- brief
+- content
+- design
+- build
+- launch
+- governance
+- deploy
+- site
 
-### Layer 3 — Artifacts
-- outputs of each step
-- review surfaces
-- decision anchors
+### Layer 3 - Artifacts
+- planning documents
+- design references
+- QA notes
+- launch records
+- code and assets
 
-### Layer 4 — Agent Roles
+### Layer 4 - Agent Roles
 - maker
-- reviewers
+- reviewer
 - synthesizer
 
-### Layer 5 — Tooling
-- external systems (via MCP)
-- experiment tracking
-- data access
+### Layer 5 - Tooling
+- editors
+- browsers
+- hosting services
+- optional Node-based tooling
 
 ---
 
 ## Workspace Model
 
-A standard project structure consists of five core workspaces:
+A standard project structure consists of six core workspaces plus two optional ones:
 
-### 00_brief — Problem Definition
+### 00_brief - Problem Definition
 Defines:
-- objectives
+- objective
+- audience
 - constraints
-- target metrics
+- success metrics
 - assumptions
 - non-goals
 
 ---
 
-### 01_data — Data Understanding
+### 01_content - Site Structure and Copy
 Defines:
-- data sources
-- schema
-- data quality
-- leakage risks
-- splits
-- feature provenance
+- site map
+- page inventory
+- copy deck
+- asset inventory
+- SEO notes
+- content sources
 
 ---
 
-### 02_analysis — Exploration
+### 02_design - Visual and UX Direction
 Contains:
-- exploratory analysis
-- visualizations
-- hypotheses
-- observations
-- notebooks and summaries
+- visual direction
+- design tokens
+- component inventory
+- layout notes
+- accessibility notes
 
 ---
 
-### 03_experiments — Experimentation
+### 03_build - Implementation Planning and QA
 Contains:
-- experiment plans
-- configurations
-- results
-- comparisons
-- error analyses
+- implementation plan
+- QA checklist
+- performance notes
+- browser support notes
 
 ---
 
-### 04_delivery — Outputs
+### 04_launch - Delivery and Handoff
 Contains:
-- stakeholder summaries
-- model documentation
-- deployment preparation
-- monitoring plans
+- launch checklist
+- deployment notes
+- handoff summary
+
+---
+
+### 05_governance - Decisions and Reviews
+Contains:
+- decision log
+- assumptions log
+- cost log
+- risks
+- reviews
+
+---
+
+### 06_deploy - Optional Hosting and Publish Setup
+Contains:
+- hosting strategy
+- environments
+- local setup
+- publish process
+
+---
+
+### 07_site - Actual Website Files
+Contains:
+- HTML entry points
+- CSS
+- JavaScript
+- images and downloadable assets
+
+---
+
+### 90_legacy_review - Existing Site Review
+Used when the repo already has a site and you need to map it before reworking it.
 
 ---
 
@@ -271,13 +305,13 @@ Contains:
 
 Artifacts evolve through stages:
 
-1. Initial creation
-2. Iterative refinement
-3. Review and critique
-4. Consolidation
-5. Finalization
+1. initial creation
+2. refinement
+3. review
+4. consolidation
+5. launch-ready state
 
-Artifacts are never “final” — they remain editable and versioned.
+Artifacts remain editable and versioned even after launch.
 
 ---
 
@@ -286,118 +320,77 @@ Artifacts are never “final” — they remain editable and versioned.
 A typical workflow:
 
 1. Define or update an artifact
-2. Execute work within a workspace
-3. Produce or update outputs
-4. Run review process
-5. Resolve issues
-6. Record decisions
-7. Move to next step
+2. Work inside the active workspace
+3. Implement or revise the site
+4. Review what changed
+5. Record decisions and risks
+6. Move to the next artifact
 
 ---
 
 ## Design Principles
 
 ### Clarity Over Cleverness
-Prefer simple, inspectable systems over complex orchestration.
+Prefer simple, inspectable structures over smart-looking complexity.
 
 ### Local Context Over Global Context
-Keep context scoped to relevant workspaces.
+Keep the active scope narrow so prompts stay useful.
 
 ### Artifacts Over Hidden State
-All important outputs should be visible and editable.
+Important project knowledge should live in files, not just in chat history.
 
-### Reuse Over Repetition
-Convert repeated workflows into skills.
+### Minimal Build Complexity
+Do not add frameworks, bundlers, or deployment systems unless the project truly needs them.
 
-### Minimalism Over Exhaustiveness
-Avoid unnecessary instructions or structure.
+### Reviewable Quality
+Accessibility, responsiveness, performance, and maintainability should be visible in the artifacts and code.
 
-### Evidence Over Opinion
-Decisions should be based on artifacts and results.
-
----
-
-## Comparison to Other Approaches
-
-| Approach | Difference |
-|----------|-----------|
-| Multi-agent systems | Focus on autonomy rather than artifact traceability |
-| Folder-based context | Focus on stages rather than artifact lifecycle |
-| Git-native agents | Focus on portability rather than workflow simplicity |
-| Minimal instruction | Focus on reducing context rather than structuring work |
+### Evidence Over Assumption
+Claims about site quality should come from inspection, checks, or explicit decisions.
 
 ---
 
 ## Intended Use Cases
 
-This framework is particularly suited for:
-
-- data science projects
-- machine learning experimentation
-- research workflows
-- iterative analytical work
-- human-in-the-loop systems
+This framework is especially suited for:
+- brochure sites
+- artist or portfolio sites
+- event sites
+- campaign or landing pages
+- content-heavy static sites
+- redesigns of small existing websites
 
 ---
 
 ## Limitations
 
-- Requires discipline in maintaining artifacts
-- May feel slower initially due to structure
-- Less optimized for real-time multi-agent collaboration
-- Requires adaptation for highly dynamic systems
+- Requires discipline to keep artifacts current
+- Can feel heavier than a purely ad hoc static site repo
+- Is not optimized for large application backends
+- Needs adaptation for highly dynamic CMS-driven systems
 
 ---
 
 ## Summary
 
-This framework defines a structured, artifact-centered approach to agentic workflows.
+This framework defines a structured, artifact-centered way to build and review simple websites with AI assistance.
 
 It combines:
-- structured context
-- clear outputs
+- localized context
+- durable project artifacts
 - controlled AI roles
 - iterative review
 - versioned development
 
-The result is a system that prioritizes:
-- transparency
-- reliability
-- and long-term usability
+The result is a process that stays transparent, practical, and easy to hand off.
 
-Proposed step-by-step plan
+## Necessary setup steps
 
-## Necessary steps
-
-01. Define framework scope for your kind of projects
-     Decide exactly what project types this framework must cover for you.
-02. Choose the default workspace structure
-     Lock the top-level folders and decide whether you need extra infra/app workspaces.
-03. Define the core artifact set
-     Decide which documents/artifacts every project must have.
-04. Define agent roles and review flow
-     Clarify Claude’s role, GPT’s role, second-review role, and convergence method.
-05. Define the root instruction file
-     Specify what AGENTS.md or CLAUDE.md should always contain.
-06. Define per-workspace CONTEXT.md files
-     Decide what each workspace context file should include.
-07. Define project lifecycle stages
-     Map how a project moves from idea to delivery under this framework.
-08. Define task execution rules
-     Decide how you start a task, how work is performed, and what counts as done.
-09. Define review and convergence artifacts
-     Create the structure for reviewer comments, synthesis, and resolution.
-10. Define the reusable skills catalog
-     Decide which repeatable workflows should become skills first.
-11. Define tooling and MCP boundaries
-     Decide when to use local repo context vs cloud tools vs external systems.
-12. Define coding/infrastructure conventions
-     Establish how Python, notebooks, Docker, Terraform, configs, and tests fit in.
-13. Define experiment and data governance rules
-     Decide how to track runs, data versions, thresholds, samples, and validation.
-14. Define deployment/project-output patterns
-     Cover batch pipelines, APIs, webapps, and human-in-the-loop review apps.
-15. Create the project initialization template
-     Turn all of the above into the starter structure for any new project.
-16. Create the operating manual
-     Write the step-by-step instructions you’ll actually follow on each new project.
+01. Define the site goal, audience, and non-goals in `00_brief/`.
+02. Decide the required pages and navigation in `01_content/`.
+03. Establish the visual direction and reusable UI patterns in `02_design/`.
+04. Plan implementation and QA in `03_build/`.
+05. Keep decisions, assumptions, costs, and risks current in `05_governance/`.
+06. Document hosting and publish details in `06_deploy/` only if needed.
+07. Build the actual site in `07_site/`.
+08. For existing sites, map the current system in `90_legacy_review/` before major changes.

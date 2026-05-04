@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Musikinsel Leipzig | Musikunterricht in Leipzig</title>
+  <meta name="description" content="Moderne statische Website für Musikinsel Leipzig mit Infos zu Unterricht, Team, News und Kontakt.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="index.html">
+      <img src="assets/images/logo02.jpg" alt="Musikinsel Leipzig Logo">
+      <div class="brand-text">
+        <strong>Musikinsel Leipzig</strong>
+        <span>Studio für Musikunterricht</span>
+      </div>
+    </a>
+    <button class="mobile-toggle" type="button" aria-label="Menü öffnen" data-menu-toggle>Menü</button>
+    <nav>
+      <ul class="nav-links" data-menu>
+        <li><a data-nav href="team.html">Team</a></li>
+        <li><a data-nav href="instrumente.html">Instrumente</a></li>
+        <li><a data-nav href="gebuehren.html">Gebühren</a></li>
+        <li><a data-nav href="raumvermietung.html">Raumvermietung</a></li>
+        <li><a data-nav href="news.html">Veranstaltungen</a></li>
+        <li><a data-nav href="kontakt.html">Kontakt</a></li>
+        <li><a data-nav href="impressum.html">Impressum</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="hero-stage">
+    <div class="container hero-stage-grid">
+      <div class="hero-stage-text">
+        <div class="hero-intro">
+          <span class="eyebrow">Wer wir sind</span>
+          <h1>Ein Musikstudio mit freundlicher Lernatmosphäre</h1>
+          <p>Die Musikinsel ist ein Musikstudio im Leipziger Stadtteil Plagwitz. Angeboten werden Violin-, Klavier-, Gitarren-, Cello- und Gruppenunterricht für Kinder, Jugendliche und Erwachsene. Im Mittelpunkt stehen musikalische Grundlagen, ein pädagogisch fundierter Zugang und die Freude am Musizieren. Die Musikinsel legt Wert auf eine vertrauensvolle Atmosphäre und einen individuellen Zugang zum Lernen.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="kontakt.html">Probestunde anfragen</a>
+            <a class="btn btn-secondary" href="team.html">Lehrkräfte kennenlernen</a>
+          </div>
+        </div>
+
+        <div class="hero-overview">
+          <span class="eyebrow">Musikunterricht in Leipzig-Plagwitz</span>
+          <h2>Was uns auszeichnet</h2>
+          <ul class="hero-list">
+            <li>Studierte Musikpädagog:innen</li>
+            <li>Viele Konzertmöglichkeiten für unsere Schüler:innen</li>
+            <li>Hochwertiges Unterrichtsinstrument (Yamaha C2-Flügel)</li>
+            <li>Individueller Unterricht, ausgerichtet auf die Bedürfnisse der Schüler:innen</li>
+            <li>Kammermusikunterricht</li>
+            <li>Streichorchester</li>
+          </ul>
+        </div>
+      </div>
+
+      <aside class="hero-panel hero-stage-panel" aria-label="Bildgalerie">
+        <div class="hero-image hero-slideshow" id="heroSlideshow">
+          <button class="hero-arrow hero-arrow-left" type="button" aria-label="Vorheriges Bild" data-hero-prev>
+            &#10094;
+          </button>
+          <img
+            id="heroSlideImage"
+            src="assets/images/startseite/klavier.jpg"
+            alt="Musikinsel Leipzig"
+            data-hero-open
+          >
+          <button class="hero-arrow hero-arrow-right" type="button" aria-label="Nächstes Bild" data-hero-next>
+            &#10095;
+          </button>
+          <div class="hero-dots" id="heroDots" aria-label="Slideshow Navigation"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Stimmen</span>
+          <h2>Was Eltern und Schüler:innen schätzen</h2>
+        </div>
+      </div>
+      <div class="card-grid">
+        <article class="testimonial">
+          <div class="quote-mark">“</div>
+          <p>Die Kompetenz der Musikpädagog:innen ist beeindruckend. Theorieunterricht lässt sich gut mit Instrumentalunterricht verbinden, Internationalität und Einfühlsamkeit spielen eine große Rolle.</p>
+          <cite>Michael Müller</cite>
+        </article>
+        <article class="testimonial">
+          <div class="quote-mark">“</div>
+          <p>Unser 6-jähriger Sohn lernt sehr gern in der Musikinsel Klavier. Die erstklassige Ausbildung seines Lehrers zeigt sich deutlich an den Fortschritten.</p>
+          <cite>Familie Ramos Tito</cite>
+        </article>
+        <article class="testimonial">
+          <div class="quote-mark">“</div>
+          <p>Wer auf der Suche nach pädagogisch wertvollem und bedürfnisorientiertem Musikunterricht abseits von Fließbandmentalität ist, ist hier sehr gut aufgehoben.</p>
+          <cite>Melanie T.</cite>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="assets/js/main.js"></script>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <h3>Musikinsel Leipzig</h3>
+      <p class="small">Musikunterricht in Leipzig-Plagwitz für Kinder, Jugendliche und Erwachsene – mit Fokus auf musikalische Grundlagen, individuellen Unterricht und Freude am Musizieren.</p>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <p class="small">Nonnenstraße 42A<br>04229 Leipzig</p>
+      <p class="small"><a href="mailto:musikinsel-leipzig@gmx.de">musikinsel-leipzig@gmx.de</a></p>
+      <p class="small"><a href="https://www.google.de/maps/place/Nonnenstra%C3%9Fe+42A,+04229+Leipzig" target="_blank" rel="noreferrer">Google Maps öffnen</a></p>
+    </div>
+    <div>
+      <h4>Schnellzugriff</h4>
+      <ul class="list-clean small">
+        <li><a href="team.html">Lehrkräfte</a></li>
+        <li><a href="instrumente.html">Instrumente &amp; Einstieg</a></li>
+        <li><a href="kontakt.html">Kontaktformular</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container section-tight small">© <span data-year></span> Musikinsel Leipzig</div>
+</footer>
+
+<div class="lightbox" id="heroLightbox" aria-hidden="true">
+  <button class="lightbox-close" type="button" aria-label="Schließen" data-lightbox-close>&times;</button>
+  <button class="lightbox-nav lightbox-prev" type="button" aria-label="Vorheriges Bild" data-lightbox-prev>
+    &#10094;
+  </button>
+  <div class="lightbox-content">
+    <img id="lightboxImage" src="" alt="Vergrößertes Bild">
+  </div>
+  <button class="lightbox-nav lightbox-next" type="button" aria-label="Nächstes Bild" data-lightbox-next>
+    &#10095;
+  </button>
+</div>
+
+</body>
+</html>

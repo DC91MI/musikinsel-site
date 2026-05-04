@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"from docx import Document; d=Document\\('Unser Team.docx'\\); print\\('\\\\n'.join\\(p.text for p in d.paragraphs\\)\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(mv cello.jpg _swap_tmp.jpg)",
+      "Bash(mv musiktheorie.jpg cello.jpg)",
+      "Bash(mv _swap_tmp.jpg musiktheorie.jpg)"
+    ]
+  }
+}

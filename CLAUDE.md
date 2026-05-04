@@ -1,36 +1,34 @@
 # Project Instructions
 
 ## Purpose
-This repository follows the Artifact-First Agentic ML Workflow.
+This repository follows an artifact-first workflow for small website development.
 
-The unit of progress is not “an agent completed a task.”
-The unit of progress is “an artifact advancing from one reviewable state to another.”
+The unit of progress is not "an agent completed a task."
+The unit of progress is "a site artifact advanced from one reviewable state to another."
 
 ## Workspace map
-- `00_brief/` — objective, scope, constraints, success metrics
-- `01_data/` — data sources, schema, quality, leakage, splits
-- `02_analysis/` — exploration, findings, hypotheses, notebook summaries
-- `03_experiments/` — experiment plans, runs, comparisons, error analysis
-- `04_delivery/` — final outputs, reports, model cards, data products
-- `05_governance/` — decisions, costs, assumptions, risks, reviews
-- `06_infra/` — infra, Docker, Terraform, local/cloud execution
-- `07_app/` — app layer such as review webapps or APIs
-- `08_pkg/` — reusable package code
-- `09_ops/` — recurring operations, monitoring, runbooks
-- `90_legacy_review/` — required for existing-repo work before major changes
+- `00_brief/` - objective, scope, constraints, audience, success metrics
+- `01_content/` - site map, page inventory, copy, assets, SEO notes
+- `02_design/` - visual direction, design tokens, components, layout, accessibility
+- `03_build/` - implementation plan, QA, performance, browser support
+- `04_launch/` - launch checklist, deployment notes, handoff summary
+- `05_governance/` - decisions, costs, assumptions, risks, reviews
+- `06_deploy/` - optional hosting, environments, publish process
+- `07_site/` - actual static site files
+- `90_legacy_review/` - required before major rework on an existing site
 
 ## Default behavior
 1. Read the relevant workspace `CONTEXT.md` before editing.
 2. Prefer updating existing artifacts over creating ad hoc notes.
-3. Keep summaries in markdown, not only in notebooks.
+3. Keep plans, page decisions, and QA notes in markdown alongside the site.
 4. Log important choices in `05_governance/decision_log.md`.
 5. Log meaningful spend assumptions or actual spend in `05_governance/cost_log.md`.
-6. Do not modify raw data snapshots unless explicitly instructed.
-7. For expensive runs, document the expected cost before execution.
-8. For legacy code, do not make major modifications before documenting the system in `90_legacy_review/`.
+6. Treat accessibility, responsiveness, and performance as first-class requirements.
+7. Avoid adding build complexity, frameworks, or backend logic unless the artifacts justify it.
+8. For existing sites, populate `90_legacy_review/` before major structural changes.
 
 ## Review workflow
-- Claude Code may be the main developer.
-- GPT may be the independent reviewer.
+- One agent may implement the work.
+- A second reviewer may inspect the artifacts and the site code independently.
 - A synthesis review should be recorded in `05_governance/reviews/review_synthesis.md`.
 - The human owner makes the final decision.

@@ -8,4 +8,9 @@
 - Metric:
 - Target:
 
+## Quality Gates
+- Accessibility:
+- Performance:
+- Responsiveness:
+
 ## Evaluation Method

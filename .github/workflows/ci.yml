@@ -7,10 +7,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Verify workspace scaffold
+        run: |
+          test -f CLAUDE.md
+          test -f 00_brief/CONTEXT.md
+          test -f 01_content/CONTEXT.md
+          test -f 02_design/CONTEXT.md
+          test -f 03_build/CONTEXT.md
+          test -f 04_launch/CONTEXT.md
+          test -f 05_governance/CONTEXT.md
+          test -f 07_site/CONTEXT.md
+      - name: Verify starter site files
+        run: |
+          test -f 07_site/index.html
+          test -f 07_site/styles/site.css
+          test -f 07_site/scripts/site.js
+      - name: Setup Node when package.json is present
+        if: ${{ hashFiles('package.json') != '' }}
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.11"
-      - run: python -m pip install --upgrade pip
-      - run: pip install ruff pytest
-      - run: ruff check . || true
-      - run: pytest || true
+          node-version: "20"
+          cache: "npm"
+      - name: Install optional Node dependencies
+        if: ${{ hashFiles('package.json') != '' }}
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+      - name: Run optional Node checks
+        if: ${{ hashFiles('package.json') != '' }}
+        run: |
+          npm run lint --if-present
+          npm run build --if-present
+          npm run test --if-present

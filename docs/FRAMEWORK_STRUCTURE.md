@@ -2,17 +2,15 @@
 
 ## Core workspaces
 - `00_brief/`
-- `01_data/`
-- `02_analysis/`
-- `03_experiments/`
-- `04_delivery/`
+- `01_content/`
+- `02_design/`
+- `03_build/`
+- `04_launch/`
 - `05_governance/`
+- `07_site/`
 
 ## Optional workspaces
-- `06_infra/`
-- `07_app/`
-- `08_pkg/`
-- `09_ops/`
+- `06_deploy/`
 
 ## Mode B extension
 - `90_legacy_review/`

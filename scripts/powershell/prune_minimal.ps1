@@ -1,2 +1,2 @@
-Remove-Item -Recurse -Force 06_infra,07_app,08_pkg,09_ops,90_legacy_review -ErrorAction SilentlyContinue
-Write-Host "Kept core workspaces only."
+Remove-Item -Recurse -Force 06_deploy,90_legacy_review -ErrorAction SilentlyContinue
+Write-Host "Kept brief, content, design, build, launch, governance, and site."

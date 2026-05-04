@@ -1,7 +1,7 @@
 # Cost Constraints
 
 ## Budget Envelope
-- Compute:
-- Storage:
-- Annotation / review:
+- Hosting:
+- Domain / DNS:
 - Tooling / SaaS:
+- Design / asset purchases:
