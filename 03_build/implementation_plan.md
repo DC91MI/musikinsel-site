@@ -27,8 +27,8 @@ This batch should stay inside the existing static-site system:
 - Instrumente page unchanged from earlier in this batch: Violine / Klavier / Gitarre / Cello / Einstieg & Alter.
 - Gebühren third value typography and mobile pair-keeping unchanged from earlier in this batch.
 - `.price-tile` CSS marker removal unchanged.
-- Veranstaltungen lead now opens with `Wir laden Euch herzlich zu unserem Sommerkonzert 2025/2026 ein!` (capital E in `Euch`); the rest of the invitation paragraph is unchanged.
-- A second visible news card was added to `news.html` using `assets/images/news/orchester_ohne_noten.jpg`. It uses the existing `.news-card.news-card-poster` system, has the conservative title `Orchester ohne Noten`, and intentionally carries no invented date or body copy.
+- Veranstaltungen is now arranged as a vertical editorial sequence inside `.news-grid.news-grid-stack`: first the `Orchester ohne Noten` poster card, then a text-only `news-card-copy` with `Wir laden Euch herzlich zu unserem Sommerkonzert 2025/2026 ein!` plus the unchanged invitation sentence, then the Sommerkonzert poster card. The page hero retains the eyebrow + H1 only, so the two visible items are easier to distinguish from one another on desktop and mobile.
+- The `Orchester ohne Noten` card remains intentionally minimal: conservative `<h3>` title, click-to-zoom image, no invented date, venue, or body copy.
 - Impressum opening sentence removal unchanged.
 - Site-wide footer copy refresh unchanged.
 - Raumvermietung photo block stays in the same location, but the `.room-photo` CSS now constrains it to `min(100%, 480px)`, centers it via auto margins, uses `object-fit: contain` with `aspect-ratio: auto`, and removes the prior `max-height: 620px` cap — so the image renders smaller, centered, and uncropped.
@@ -50,8 +50,12 @@ This batch should stay inside the existing static-site system:
 - Desktop/tablet presentation unchanged. `.pricing-table-single` (2-children variant) untouched by the new order rules.
 
 ### Milestone 4 - Veranstaltungen poster-card cleanup — DONE
-- Invitation paragraph added under the eyebrow/H1 as a `.lead`.
-- Inner `<h3>Sommerkonzert</h3>` removed from the poster card; click-to-zoom anchor and no-crop rendering preserved.
+- The page hero now carries only the eyebrow `Veranstaltungen` and the H1 `Neuigkeiten und Konzerte`.
+- The visible Veranstaltungen sequence is now vertical and editorially separated:
+  - `Orchester ohne Noten` poster card
+  - text-only card with `Wir laden Euch herzlich zu unserem Sommerkonzert 2025/2026 ein!` plus the remaining invitation sentence
+  - Sommerkonzert poster card
+- The former hero-level invitation paragraph and the extra poster heading were removed; click-to-zoom anchors and no-crop poster rendering are preserved.
 
 ### Milestone 5 - Impressum and footer copy cleanup — DONE
 - Impressum opening `<p class="lead">` deleted.
@@ -69,8 +73,9 @@ This batch should stay inside the existing static-site system:
 - Team previews actually trimmed (see Milestone 6 above).
 - This plan is now consistent with the live HTML: it no longer claims a verified state ahead of code.
 - Homepage intro paragraph changed from `Violin-, Klavier-, Gitarren-, Cello-, Musiktheorie- und Gehörbildungsunterricht für Kinder, Jugendliche und Erwachsene.` to `Violin-, Klavier-, Gitarren-, Cello- und Gruppenunterricht für Kinder, Jugendliche und Erwachsene.`
-- Veranstaltungen lead opener changed to `Wir laden Euch herzlich zu unserem Sommerkonzert 2025/2026 ein!`; the remaining invitation sentence is unchanged.
-- Second `<article class="news-card news-card-poster">` added under the existing Sommerkonzert poster, using `assets/images/news/orchester_ohne_noten.jpg` and the conservative title `Orchester ohne Noten`. No invented date, venue, or body paragraph.
+- Veranstaltungen invitation copy is no longer attached to the page hero. It now sits in its own text-only card between the two visible event items, beginning `Wir laden Euch herzlich zu unserem Sommerkonzert 2025/2026 ein!`
+- `Orchester ohne Noten` is now the first visible event item, followed by the Sommerkonzert invitation text card, followed by the Sommerkonzert poster card.
+- `news-grid.news-grid-stack` forces a single-column vertical sequence on desktop and mobile so the two items remain visually distinct.
 - `.room-photo` CSS rewritten so the Raumvermietung image is clamped to `width: min(100%, 480px)`, centered via auto margins, and renders uncropped via `object-fit: contain` + `aspect-ratio: auto`. The Batch 007 `max-height: 620px` cap and the `cover` crop were removed.
 
 ## File Ownership / Areas

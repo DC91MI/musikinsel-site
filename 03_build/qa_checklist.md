@@ -62,7 +62,9 @@
 - [ ] Third Gebuehren value still reads `35€ pro Monat`
 - [ ] Third Gebuehren value text size matches the equivalent value text sizing in the first two pricing tables
 - [ ] On mobile, Gebühren duration labels stay paired with their corresponding prices instead of stacking all headers first and all prices afterwards
-- [ ] `news.html` includes the Sommerkonzert invitation paragraph and no longer shows a separate `Sommerkonzert` heading above the poster
+- [ ] `news.html` shows a vertical sequence on desktop and mobile: `Orchester ohne Noten`, then the Sommerkonzert invitation text card, then the Sommerkonzert poster
+- [ ] `news.html` no longer falls back to a side-by-side desktop news layout
+- [ ] `news.html` no longer shows a separate `Sommerkonzert` heading above the poster
 - [ ] Veranstaltungen intro now begins `Wir laden Euch herzlich zu unserem Sommerkonzert 2025/2026 ein!`
 - [ ] `news.html` includes a second visible news item using `assets/images/news/orchester_ohne_noten.jpg`
 - [ ] `impressum.html` no longer shows the opening legal-summary sentence

@@ -891,3 +891,20 @@ textarea { min-height: 160px; resize: vertical; }
   background: var(--surface-2);
   display: block;
 }
+
+/* === BATCH 007: Veranstaltungen vertical stack === */
+
+.news-grid.news-grid-stack {
+  grid-template-columns: 1fr;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.news-card-copy {
+  padding: 1.5rem;
+}
+
+.news-card-copy p {
+  margin: 0;
+}

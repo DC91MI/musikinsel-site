@@ -51,15 +51,17 @@ Read together with:
 - The desktop/tablet appearance should remain in the current table family.
 
 ### `news.html`
-- Add this paragraph below the hero block:
-  - `Wir laden Euch herzlich zu unserem Sommerkonzert 2025/2026 ein! Die Schülerinnen und Schüler der Klavier-, Geigen-, Cello- und Gitarrenklassen präsentieren Musikstücke des klassischen Repertoires unterschiedlicher Niveaus. Diese werden sowohl solistisch als auch in Gruppen vorgetragen.`
-- Remove the separate `Sommerkonzert` heading above the poster image.
-- Add a second news item using `assets/images/news/orchester_ohne_noten.jpg`.
-- If no additional source copy exists, use a conservative placeholder treatment:
+- Keep the page hero simple: eyebrow `Veranstaltungen` + H1 `Neuigkeiten und Konzerte`.
+- Make the visible event sequence vertical on desktop and mobile:
+  - first `Orchester ohne Noten`
+  - then a text-only card with `Wir laden Euch herzlich zu unserem Sommerkonzert 2025/2026 ein! Die Schülerinnen und Schüler der Klavier-, Geigen-, Cello- und Gitarrenklassen präsentieren Musikstücke des klassischen Repertoires unterschiedlicher Niveaus. Diese werden sowohl solistisch als auch in Gruppen vorgetragen.`
+  - then the Sommerkonzert poster card
+- `Orchester ohne Noten` should use a conservative placeholder treatment:
   - title `Orchester ohne Noten`
   - image shown inside the existing news-card visual system
   - no invented date, venue, or explanatory body copy
-- Keep the existing Sommerkonzert poster card as the first visible item.
+- Remove the separate `Sommerkonzert` heading above the poster image.
+- Do not let the page fall back to the old two-column desktop layout.
 
 ### `impressum.html`
 - Remove the opening sentence:
@@ -107,7 +109,9 @@ The batch is not ready to close unless all of these are true:
 - `instrumente.html` no longer has a `Musiktheorie` card, and `Einstieg & Alter` appears in that slot with the revised text.
 - Third Gebuehren pricing value still says `35€ pro Monat` and visually matches the first two pricing tables' value sizing.
 - On mobile, every Gebühren duration label remains paired with its corresponding price.
-- `news.html` contains the invitation paragraph and no longer shows the extra `Sommerkonzert` heading above the poster.
+- `news.html` shows a vertical sequence: `Orchester ohne Noten`, then the Sommerkonzert invitation text card, then the Sommerkonzert poster.
+- `news.html` no longer falls back to a side-by-side desktop news layout.
+- `news.html` no longer shows the extra `Sommerkonzert` heading above the poster.
 - `news.html` also includes a second visible news item using `assets/images/news/orchester_ohne_noten.jpg`.
 - `impressum.html` no longer shows the legal-summary lead sentence.
 - Footer copy is updated consistently across all pages.

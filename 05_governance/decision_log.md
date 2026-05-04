@@ -43,6 +43,19 @@
 
 **Impact.** Batch 007 closes cleanly with one consolidated record instead of a hanging review-findings document plus a Batch 008 stub.
 
+### Decision 5 - Veranstaltungen now uses a single-column editorial stack to distinguish the two visible items
+
+**Context.** After the closeout pass, the `news.html` markup already contained the desired content order (`Orchester ohne Noten`, then the Sommerkonzert invitation copy, then the Sommerkonzert poster). But the desktop page still inherited the old `.news-grid { grid-template-columns: repeat(2, ...) }` rule, so the two event items remained side by side and visually harder to distinguish. The client also called out that the "one-liner description" still appeared to belong to the wrong item.
+
+**Chosen direction.** Kept the reordered HTML and added a narrow scoped CSS override:
+- `news-grid news-grid-stack` forces `grid-template-columns: 1fr`
+- the stack is width-clamped and centered with `max-width: 780px; margin-left/right: auto`
+- the Sommerkonzert invitation copy lives in its own `.news-card.news-card-copy` between the two poster cards
+
+**Rationale.** A page-specific stack override is the smallest fix that preserves the existing card language, keeps mobile behavior intact, and makes the two visible event items read as clearly separate entries on desktop.
+
+**Impact.** Veranstaltungen now reads top-to-bottom on all breakpoints: `Orchester ohne Noten`, then the Sommerkonzert invitation text, then the Sommerkonzert poster. The `Orchester ohne Noten` card remains title + image only, with no invented descriptive body copy.
+
 ---
 
 ## 2026-05-04 - Batch 007 closeout planning decisions
