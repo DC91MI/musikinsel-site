@@ -58,15 +58,19 @@
           allowfullscreen></iframe>
       </article>
       <article class="contact-card">
-        <form name="kontakt" method="post">
+        <form name="kontakt" method="POST" action="/danke/" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="kontakt">
+          <p class="form-hidden">
+            <label>Nicht ausfüllen: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+          </p>
           <div class="form-grid">
             <div>
               <label for="name">Name</label>
-              <input id="name" name="name" type="text" placeholder="Ihr Name">
+              <input id="name" name="name" type="text" placeholder="Ihr Name" required>
             </div>
             <div>
               <label for="email">E-Mail</label>
-              <input id="email" name="email" type="email" placeholder="name@beispiel.de">
+              <input id="email" name="email" type="email" placeholder="name@beispiel.de" required>
             </div>
             <div class="form-full">
               <label for="fach">Thema</label>
@@ -82,7 +86,7 @@
             </div>
             <div class="form-full">
               <label for="nachricht">Nachricht</label>
-              <textarea id="nachricht" name="nachricht" placeholder="Worum geht es?"></textarea>
+              <textarea id="nachricht" name="nachricht" placeholder="Worum geht es?" required></textarea>
             </div>
           </div>
           <div class="btn-row">

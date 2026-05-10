@@ -2,6 +2,63 @@
 
 ## Goal
 
+Prepare Batch 008 for the Musikinsel Leipzig static site in `legacy_site/site/` as a narrowly scoped form-handling fix for Netlify deployment.
+
+The current production symptom is that submitting the Kontakt form can land on a `POST /kontakt` 404. The likely cause is static form markup that posts back to the same page without Netlify Forms detection attributes, a hidden `form-name`, honeypot configuration, or a dedicated success route.
+
+This batch should stay inside the existing static-site system:
+
+- no backend
+- no Netlify Functions
+- no AJAX form layer
+- no external form provider
+- no unrelated content, navigation, or design changes
+
+## Current Status
+
+- Batch 007 is closed.
+- Batch 008 code work is implemented; production verification is still pending the next deploy.
+- `legacy_site/site/kontakt.html` form is now Netlify Forms-compatible: `method="POST"`, `action="/danke/"`, `data-netlify="true"`, `netlify-honeypot="bot-field"`, hidden `<input type="hidden" name="form-name" value="kontakt">`, and a visually-hidden honeypot input named `bot-field`. Name, email, and message fields carry `required`. The seven-option `Thema` select including `Raumvermietung` is unchanged.
+- `legacy_site/site/danke/index.html` exists and reuses the standard head/header/footer shell. All asset and page links are prefixed with `../` so the page works both locally and at `/danke/` on Netlify. `<meta name="robots" content="noindex">` keeps the success route out of search indexes.
+- `legacy_site/site/assets/css/styles.css` has a new `BATCH 008` block with a `.form-hidden` utility that visually hides the honeypot via clip/1px sizing rather than `display: none`.
+- `legacy_site/site/raumvermietung.html` is unchanged: the existing `Anfrage senden` CTA still links to `kontakt.html`, no second form was introduced.
+- `06_deploy/netlify_forms_setup.md` already matches the implemented markup and remains the operator handoff for the post-deploy dashboard checks.
+- The matching coding prompt is `prompts/for_coding_agent/010_musikinsel_netlify_form_handling.md`.
+
+## Batch 008 Milestones
+
+### Milestone 1 - Netlify form markup - DONE
+- `kontakt.html` form now declares `method="POST"`, `action="/danke/"`, `data-netlify="true"`, and `netlify-honeypot="bot-field"`.
+- Hidden `<input type="hidden" name="form-name" value="kontakt">` precedes the visible fields so the JavaScript-free POST body still identifies the form for Netlify.
+- Honeypot field lives inside `<p class="form-hidden">` with `tabindex="-1"` and `autocomplete="off"` to keep it out of the keyboard/autofill flow for real users.
+- Name, email, and message fields are marked `required`; the existing seven `Thema` options are preserved verbatim, including `Raumvermietung`.
+
+### Milestone 2 - Success page - DONE
+- `legacy_site/site/danke/index.html` exists, matches the site head/header/footer pattern, and uses `../`-relative asset paths so it renders both locally and at `/danke/` on Netlify.
+- Page hero confirms successful submission (`Vielen Dank für Ihre Nachricht`, lead paragraph promising a reply).
+- Body card includes the `musikinsel-leipzig@gmx.de` direct contact and two CTAs: `Zur Startseite` and `Zurück zum Kontakt`.
+- `<meta name="robots" content="noindex">` keeps the confirmation route out of search indexes.
+
+### Milestone 3 - Honeypot styling - DONE
+- Added a `BATCH 008` block at the end of `styles.css` with a single `.form-hidden` utility (`position: absolute; clip: rect(0 0 0 0); height/width: 1px; margin: -1px;`).
+- No `display: none` so screen-reader and assistive-tech users still see the field exists; visual layout is unaffected because the wrapper occupies a 1×1 absolute box.
+
+### Milestone 4 - Raumvermietung flow preservation - DONE
+- `raumvermietung.html` was inspected and intentionally left untouched.
+- Its existing `<a class="btn btn-primary" href="kontakt.html">Anfrage senden</a>` still routes Raumvermietung inquiries into the shared Kontakt form, where the `Raumvermietung` `Thema` option distinguishes them.
+
+### Milestone 5 - Deployment handoff - DONE
+- `06_deploy/netlify_forms_setup.md` already describes the markup that landed and the Netlify dashboard checks to perform after deploy: form detection, recipient `musikinsel-leipzig@gmx.de`, honeypot verification, production submission, redirect to `/danke/`, and the spam-folder fallback path.
+- No further edits were required on the operator checklist.
+
+### Milestone 6 - Review and production verification - PENDING DEPLOY
+- Code review can verify the HTML/CSS landed and `/danke/` is wired up.
+- Final acceptance still requires the human owner to deploy and run the Netlify-side checklist (form detected in dashboard, notification email configured, real submission redirects to `/danke/` and lands in the Forms inbox).
+
+---
+
+## Previous Goal - Batch 007
+
 Prepare Batch 007 for the Musikinsel Leipzig static site in `legacy_site/site/` as a focused editorial-and-layout refinement pass across:
 
 - homepage content order and copy

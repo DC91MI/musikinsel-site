@@ -1,5 +1,87 @@
 # Decision Log
 
+## 2026-05-10 - Batch 008 implementation decisions
+
+### Decision 1 - Honeypot uses a clip-rect utility, not `display: none`
+
+**Context.** The honeypot field has to be invisible to real visitors but still present in the DOM so spam bots fill it in. `display: none` would also hide it from Netlify's bot-trap heuristic family in some configurations, and is generally discouraged because it removes the node from the accessibility tree entirely.
+
+**Chosen direction.** Added a single `.form-hidden` utility in `styles.css` (BATCH 008 block) that uses `position: absolute; clip: rect(0 0 0 0); height: 1px; width: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden;`. The honeypot field is wrapped in `<p class="form-hidden">` and carries `tabindex="-1"` and `autocomplete="off"` on the input so keyboard users skip it and password managers don't try to fill it.
+
+**Rationale.** This is the standard "visually hidden but still rendered" pattern. It keeps the input fully present for bots while removing it from the visible layout and the keyboard tab order. It also leaves room for future additions (e.g. accessible-only labels) without re-deriving a new utility.
+
+**Impact.** One small CSS rule appended to `styles.css`. No layout change to the visible Kontakt form.
+
+### Decision 2 - `danke/index.html` lives in a subdirectory and uses `../` relative paths
+
+**Context.** Netlify's `action="/danke/"` resolves to `/danke/` after deploy, so the simplest static mapping is a folder with an `index.html`. That moves the success page one directory deeper than the rest of the site, which means relative asset paths from the existing shell (`assets/css/styles.css`, `assets/images/logo02.jpg`, `assets/js/main.js`) and inter-page links (`team.html`, `kontakt.html`, ...) need to be reachable from `legacy_site/site/danke/`.
+
+**Chosen direction.** Used `../`-prefixed relative paths throughout the new `danke/index.html` (e.g. `../assets/css/styles.css`, `../index.html`, `../kontakt.html`). Did not switch the rest of the site to root-relative paths.
+
+**Rationale.** Root-relative paths (`/assets/...`) would have broken local file:// previews used during development and would have introduced a footprint mismatch with the rest of the static shell. `../` paths work in both `file://` previews and on the Netlify deploy.
+
+**Impact.** The `danke/` page renders identically to the other pages locally and in production. No changes needed to other pages' link strategy.
+
+### Decision 3 - Add `<meta name="robots" content="noindex">` to the success page
+
+**Context.** `/danke/` is a transactional confirmation page; it has no value as a search-result landing page and would only confuse users arriving from organic search.
+
+**Chosen direction.** Added `<meta name="robots" content="noindex">` to `danke/index.html`'s `<head>`.
+
+**Impact.** The page remains crawlable but should not appear in search results, which is the intended behavior for confirmation routes.
+
+### Decision 4 - `required` on the three free-text fields, not on the `Thema` select
+
+**Context.** The brief asks for name, email, and message to be required. The `Thema` select is a dropdown that always defaults to `Allgemein`, so it cannot be empty in practice and adding `required` would be redundant.
+
+**Chosen direction.** Added the `required` attribute to `name`, `email` (already type-validated), and the `nachricht` textarea. Left the `Thema` select as-is.
+
+**Impact.** The browser blocks empty submissions of the three free-text fields without changing the topic-selection UX or the existing seven `Thema` options.
+
+### Decision 5 - Raumvermietung flow stays one-form, no markup change
+
+**Context.** The brief and Decision 2 of the planning entry below both call for keeping a single Kontakt form for general and Raumvermietung inquiries. The Raumvermietung CTA already targets `kontakt.html`, and the `Thema` dropdown already includes `Raumvermietung`.
+
+**Chosen direction.** Left `raumvermietung.html` untouched in this batch. No query parameter or anchor was added because the existing CTA + dropdown already produce a clear, JavaScript-free flow.
+
+**Impact.** Raumvermietung inquiries continue to arrive through the same Netlify Forms submission stream with `fach=Raumvermietung` distinguishing them from general contact inquiries.
+
+---
+
+## 2026-05-10 - Batch 008 planning decisions
+
+### Decision 1 - Use native Netlify Forms instead of adding backend code
+
+**Context.** Production form submission currently fails with a `POST /kontakt` 404. The existing `kontakt.html` form posts back to the same static page and has no Netlify Forms detection markup.
+
+**Chosen direction.** Batch 008 will keep the site static and use Netlify Forms markup: `data-netlify="true"`, a hidden `form-name`, honeypot spam protection, and a custom success route via `action="/danke/"`.
+
+**Rationale.** The site is already hosted as a static Netlify site, and Netlify Forms is designed for this exact no-backend use case. Adding serverless functions, AJAX, or an outside form provider would increase complexity without solving a broader need.
+
+**Impact.** The next coding pass should update `kontakt.html`, add `legacy_site/site/danke/index.html`, and avoid any backend or JavaScript submission layer.
+
+### Decision 2 - Keep one shared Kontakt form for general and Raumvermietung inquiries
+
+**Context.** `raumvermietung.html` currently uses an `Anfrage senden` CTA to send users to `kontakt.html`, and the Kontakt form already includes `Raumvermietung` in the `Thema` dropdown.
+
+**Chosen direction.** Batch 008 will preserve that flow rather than creating a second visible form on Raumvermietung.
+
+**Rationale.** One form keeps Netlify detection and notification setup simpler, avoids duplicated static form markup, and gives the owner one submissions stream in Netlify.
+
+**Impact.** Raumvermietung inquiries will be identified through the existing `fach=Raumvermietung` field.
+
+### Decision 3 - Add deployment documentation because code review cannot verify Netlify dashboard state
+
+**Context.** Correct HTML is necessary but not sufficient. Netlify must detect the form on deploy, and notification emails must be configured in the site dashboard.
+
+**Chosen direction.** Add `06_deploy/netlify_forms_setup.md` with dashboard checks, notification setup, spam/honeypot verification, and production test steps.
+
+**Rationale.** This separates code acceptance from deployment acceptance. A reviewer can verify markup, but only a production deploy can prove Netlify has registered the form and is sending notifications.
+
+**Impact.** Final acceptance for Batch 008 should include a real production submission test after deployment.
+
+---
+
 ## 2026-05-04 - Batch 007 closeout implementation decisions
 
 ### Decision 1 - Team preview trim implemented as a leading-prefix strip per card

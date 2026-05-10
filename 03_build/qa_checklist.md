@@ -76,6 +76,23 @@
 - [ ] Raumvermietung photo is reduced to about 60% of its prior rendered size, centered, and not cropped
 - [ ] `03_build/implementation_plan.md` no longer overstates the Team cleanup status
 
+## Batch 008 Netlify Form Handling
+- [ ] `kontakt.html` form uses `method="POST"` and `action="/danke/"`
+- [ ] `kontakt.html` form includes `data-netlify="true"`
+- [ ] `kontakt.html` form includes hidden `form-name` with value `kontakt`
+- [ ] `kontakt.html` form includes honeypot configuration for `bot-field`
+- [ ] Honeypot field is visually hidden without `display: none`
+- [ ] Name, email, and message fields are required
+- [ ] Existing `Thema` options remain intact, including `Raumvermietung`
+- [ ] `legacy_site/site/danke/index.html` exists and matches the site shell
+- [ ] `/danke/` is the success route after submission
+- [ ] Raumvermietung CTA still routes users to the Kontakt form
+- [ ] Netlify dashboard checklist exists in `06_deploy/netlify_forms_setup.md`
+- [ ] After deploy, Netlify Forms detects a form named `kontakt`
+- [ ] After deploy, email notifications are configured to `musikinsel-leipzig@gmx.de`
+- [ ] After deploy, a production test submission appears in Netlify Forms
+- [ ] After deploy, a production test redirects to `/danke/`
+
 ## Accessibility and Responsiveness
 - [ ] Navigation remains keyboard-usable
 - [ ] Embedded map does not overflow on narrow screens

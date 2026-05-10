@@ -284,3 +284,60 @@ The Batch 007 closeout pass is aligned in code. The previously open Team-preview
 ### Verdict
 
 Batch 007 closeout is **clean in code review**. I found **no remaining code-level acceptance misses** in the inspected scope. Final acceptance now mostly depends on human browser QA and visual sign-off.
+
+## Batch 008 Netlify Form Handling Review Synthesis (2026-05-10)
+
+### Scope Result
+
+Batch 008 is clean in code review. The Kontakt form now uses Netlify Forms-compatible static markup, successful submissions are routed to `/danke/`, the success page exists as `legacy_site/site/danke/index.html`, the honeypot utility is appended at the end of `styles.css`, and Raumvermietung remains intentionally routed through the shared Kontakt form.
+
+### Verified In Code
+
+- `legacy_site/site/kontakt.html`
+  - form is exactly `name="kontakt" method="POST" action="/danke/" data-netlify="true" netlify-honeypot="bot-field"`
+  - hidden `form-name` input is the first form child
+  - honeypot field is named `bot-field`, remains in the DOM, has `tabindex="-1"` and `autocomplete="off"`
+  - visible fields and names are preserved: `name`, `email`, `fach`, `nachricht`
+  - `name`, `email`, and `nachricht` are required; `fach` remains optional/defaulted
+  - `Thema` options remain `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`, `Gruppenunterricht`, `Raumvermietung`
+- `legacy_site/site/danke/index.html`
+  - exists in the lower-case `danke/` folder
+  - uses `../` paths for assets and page links
+  - includes `noindex`, the standard header/footer shell, CTAs back to Start/Kontakt, and `../assets/js/main.js`
+- `legacy_site/site/assets/css/styles.css`
+  - BATCH 008 block defines `.form-hidden` with clip/1px visually-hidden styling
+  - the new honeypot rule does not use `display: none` or `visibility: hidden`
+- `legacy_site/site/raumvermietung.html`
+  - remains unchanged from Batch 007 closeout
+  - `Anfrage senden` still links to `kontakt.html`
+  - no second form was added
+- `03_build/implementation_plan.md`
+  - Milestones 1-5 are DONE
+  - Milestone 6 is explicitly PENDING DEPLOY
+  - the plan does not claim production verification is complete
+- `05_governance/decision_log.md`
+  - includes a new Batch 008 implementation-decisions block above the planning block
+- `06_deploy/netlify_forms_setup.md`
+  - still covers redeploy, Netlify Forms detection, email notifications, honeypot verification, production test, spam checks, `/danke/`, and the Raumvermietung flow
+
+### Local Browser Sanity
+
+- Served `legacy_site/site` locally and opened `kontakt.html` and `/danke/`.
+- Both pages rendered the standard header/nav/footer and brand image with CSS loaded.
+- The Kontakt form visually retained its layout; no visible honeypot row appeared.
+- Empty local submit remained on Kontakt because browser-native required-field validation blocked submission.
+- The `/danke/` page loaded with working stylesheet/script paths and visible Start/Kontakt CTAs.
+
+### Remaining Verification Gap
+
+Production verification is still required after deploy:
+
+- Netlify must detect the `kontakt` form in the Forms tab.
+- Email notifications must be configured to `musikinsel-leipzig@gmx.de`.
+- A real production submission must redirect to `/danke/`.
+- The submission must appear in Netlify Forms and arrive by email, or be checked in spam/filtered submissions.
+- The Raumvermietung end-to-end path should be tested from `Anfrage senden` through the `Raumvermietung` topic.
+
+### Verdict
+
+Batch 008 is **clean in code review**. I found **no blocking issues and no should-fix code gaps** in the inspected scope. Final acceptance still depends on the human owner deploying and completing the Netlify dashboard plus real-submission test described in `06_deploy/netlify_forms_setup.md`.
