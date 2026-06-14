@@ -2,28 +2,56 @@
 
 ## Goal
 
-Prepare Batch 008 for the Musikinsel Leipzig static site in `legacy_site/site/` as a narrowly scoped form-handling fix for Netlify deployment.
+Prepare Batch 009 for the Musikinsel Leipzig static site in `legacy_site/site/` as a narrowly scoped switch from Netlify Forms storage to Formspree email-alert handling.
 
-The current production symptom is that submitting the Kontakt form can land on a `POST /kontakt` 404. The likely cause is static form markup that posts back to the same page without Netlify Forms detection attributes, a hidden `form-name`, honeypot configuration, or a dedicated success route.
+Batch 008 proved form submission could reach Netlify Forms, but the user found that Netlify email notifications require a paid plan in their setup. The selected free provider is Formspree, using endpoint `https://formspree.io/f/mdavygdk`.
 
 This batch should stay inside the existing static-site system:
 
 - no backend
 - no Netlify Functions
-- no AJAX form layer
-- no external form provider
+- only a tiny JavaScript submit enhancement to preserve the existing `/danke/` success page on Formspree's free plan
+- no additional form provider beyond the selected Formspree endpoint
 - no unrelated content, navigation, or design changes
 
 ## Current Status
 
-- Batch 007 is closed.
-- Batch 008 code work is implemented; production verification is still pending the next deploy.
-- `legacy_site/site/kontakt.html` form is now Netlify Forms-compatible: `method="POST"`, `action="/danke/"`, `data-netlify="true"`, `netlify-honeypot="bot-field"`, hidden `<input type="hidden" name="form-name" value="kontakt">`, and a visually-hidden honeypot input named `bot-field`. Name, email, and message fields carry `required`. The seven-option `Thema` select including `Raumvermietung` is unchanged.
-- `legacy_site/site/danke/index.html` exists and reuses the standard head/header/footer shell. All asset and page links are prefixed with `../` so the page works both locally and at `/danke/` on Netlify. `<meta name="robots" content="noindex">` keeps the success route out of search indexes.
-- `legacy_site/site/assets/css/styles.css` has a new `BATCH 008` block with a `.form-hidden` utility that visually hides the honeypot via clip/1px sizing rather than `display: none`.
-- `legacy_site/site/raumvermietung.html` is unchanged: the existing `Anfrage senden` CTA still links to `kontakt.html`, no second form was introduced.
-- `06_deploy/netlify_forms_setup.md` already matches the implemented markup and remains the operator handoff for the post-deploy dashboard checks.
-- The matching coding prompt is `prompts/for_coding_agent/010_musikinsel_netlify_form_handling.md`.
+- Batch 008 is closed as a useful intermediate Netlify Forms setup, but Netlify paid notifications are not the chosen path.
+- Batch 009 code work is implemented; production verification is still pending the next deploy.
+- `legacy_site/site/kontakt.html` now posts to `https://formspree.io/f/mdavygdk` and uses Formspree's `_gotcha` honeypot field.
+- `legacy_site/site/assets/js/main.js` includes a small `data-formspree-form` submit handler that POSTs to Formspree with `Accept: application/json`, redirects to `/danke/` on success, and shows a German fallback error with the direct email address on failure.
+- `legacy_site/site/danke/index.html` remains the success page.
+- `legacy_site/site/raumvermietung.html` remains unchanged and continues routing through the same Kontakt form.
+- `06_deploy/nontechnical_formspree_check_guide.md` is the current operator check guide.
+
+## Batch 009 Milestones
+
+### Milestone 1 - Formspree endpoint markup - DONE
+- Kontakt form action changed to `https://formspree.io/f/mdavygdk`.
+- Netlify-only hidden fields and attributes removed.
+- Formspree `_gotcha` honeypot added.
+
+### Milestone 2 - Success page preservation - DONE
+- A tiny JS submit handler preserves the existing `/danke/` success UX after a successful Formspree response.
+- The plain HTML `action` remains a fallback if JavaScript fails.
+
+### Milestone 3 - Operator documentation - DONE
+- Formspree check guide added at `06_deploy/nontechnical_formspree_check_guide.md`.
+- Publish process points to the Formspree check guide.
+- Netlify setup doc now states it is historical for the earlier Batch 008 path.
+
+### Milestone 4 - Production verification - PENDING DEPLOY
+- Final acceptance requires a live submission after deploy:
+  - redirect to `/danke/`
+  - submission appears in Formspree
+  - email alert arrives at `musikinsel-leipzig@gmx.de`
+  - Raumvermietung inquiry path works
+
+---
+
+## Previous Goal - Batch 008
+
+Prepare Batch 008 for the Musikinsel Leipzig static site in `legacy_site/site/` as a narrowly scoped form-handling fix for Netlify deployment.
 
 ## Batch 008 Milestones
 

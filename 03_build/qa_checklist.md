@@ -93,6 +93,20 @@
 - [ ] After deploy, a production test submission appears in Netlify Forms
 - [ ] After deploy, a production test redirects to `/danke/`
 
+## Batch 009 Formspree Email Alerts
+- [ ] `kontakt.html` form action is `https://formspree.io/f/mdavygdk`
+- [ ] Netlify-only form attributes and hidden `form-name` are removed from `kontakt.html`
+- [ ] Honeypot field is named `_gotcha`
+- [ ] Name, email, and message fields remain required
+- [ ] Existing `Thema` options remain intact, including `Raumvermietung`
+- [ ] JavaScript submit handler redirects successful Formspree submissions to `/danke/`
+- [ ] JavaScript failure state shows a German error with direct email fallback
+- [ ] Without JavaScript, the form still has a normal POST fallback to Formspree
+- [ ] Formspree dashboard restricts submissions to `musikinsel-leipzig.de`
+- [ ] After deploy, a production test appears in Formspree
+- [ ] After deploy, a production test email arrives at `musikinsel-leipzig@gmx.de`
+- [ ] Raumvermietung test works through the same Kontakt form
+
 ## Accessibility and Responsiveness
 - [ ] Navigation remains keyboard-usable
 - [ ] Embedded map does not overflow on narrow screens

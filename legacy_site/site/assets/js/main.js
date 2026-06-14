@@ -17,6 +17,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  const formspreeForm = document.querySelector('[data-formspree-form]');
+  if (formspreeForm) {
+    const statusNode = formspreeForm.querySelector('[data-form-status]');
+    const submitButton = formspreeForm.querySelector('button[type="submit"]');
+    const defaultButtonText = submitButton ? submitButton.textContent : '';
+
+    formspreeForm.addEventListener('submit', async (event) => {
+      if (!formspreeForm.checkValidity()) return;
+
+      event.preventDefault();
+      if (statusNode) statusNode.textContent = '';
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Wird gesendet...';
+      }
+
+      try {
+        const response = await fetch(formspreeForm.action, {
+          method: 'POST',
+          body: new FormData(formspreeForm),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          window.location.href = formspreeForm.dataset.successUrl || '/danke/';
+          return;
+        }
+
+        if (statusNode) {
+          statusNode.textContent = 'Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an musikinsel-leipzig@gmx.de.';
+        }
+      } catch (error) {
+        if (statusNode) {
+          statusNode.textContent = 'Die Nachricht konnte nicht gesendet werden. Bitte prüfen Sie Ihre Internetverbindung oder schreiben Sie direkt an musikinsel-leipzig@gmx.de.';
+        }
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = defaultButtonText;
+        }
+      }
+    });
+  }
+
   const heroSlides = [
     "assets/images/startseite/klavier.jpg",
     "assets/images/startseite/Room2-min.png",

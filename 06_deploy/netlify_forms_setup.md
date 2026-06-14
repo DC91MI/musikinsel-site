@@ -1,5 +1,17 @@
 # Netlify Forms Setup And Verification
 
+## Status
+
+This document records the earlier Batch 008 Netlify Forms setup.
+
+The current email-alert path is Formspree, because Netlify email notifications required a paid Netlify plan in this project setup.
+
+Use this newer guide for current form testing:
+
+```text
+06_deploy/nontechnical_formspree_check_guide.md
+```
+
 ## Why The Current Error Happens
 
 The deployed contact form currently posts back to the contact page. On a static site, a plain POST to `/kontakt` has no backend route unless Netlify Forms detects and handles the form during deploy.

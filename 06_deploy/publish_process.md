@@ -2,9 +2,9 @@
 
 ## Trigger
 
-Use the plain-language form-check guide after the site is deployed:
+Use the plain-language Formspree form-check guide after the site is deployed:
 
-- `06_deploy/nontechnical_netlify_deploy_guide.md`
+- `06_deploy/nontechnical_formspree_check_guide.md`
 
 Preferred trigger:
 
@@ -16,7 +16,7 @@ Fallback trigger:
 
 ## Steps
 
-See `06_deploy/nontechnical_netlify_deploy_guide.md`.
+See `06_deploy/nontechnical_formspree_check_guide.md`.
 
 ## Verification
 
@@ -25,10 +25,10 @@ At minimum:
 - live homepage loads
 - `kontakt.html` loads
 - `/danke/` loads
-- Netlify Forms detects the `kontakt` form
+- Formspree receives the `kontakt` submission
 - a real production submission redirects to `/danke/`
-- submission appears in Netlify Forms
-- notification email arrives at `musikinsel-leipzig@gmx.de`
+- submission appears in Formspree
+- Formspree email alert arrives at `musikinsel-leipzig@gmx.de`
 - Raumvermietung flow works through the same Kontakt form
 
 ## Rollback

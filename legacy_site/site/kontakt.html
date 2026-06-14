@@ -58,10 +58,9 @@
           allowfullscreen></iframe>
       </article>
       <article class="contact-card">
-        <form name="kontakt" method="POST" action="/danke/" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="kontakt">
+        <form name="kontakt" method="POST" action="https://formspree.io/f/mdavygdk" data-formspree-form data-success-url="/danke/">
           <p class="form-hidden">
-            <label>Nicht ausfüllen: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+            <label>Nicht ausfüllen: <input name="_gotcha" tabindex="-1" autocomplete="off"></label>
           </p>
           <div class="form-grid">
             <div>
@@ -89,6 +88,7 @@
               <textarea id="nachricht" name="nachricht" placeholder="Worum geht es?" required></textarea>
             </div>
           </div>
+          <p class="form-status" data-form-status aria-live="polite"></p>
           <div class="btn-row">
             <button class="btn btn-primary" type="submit">Nachricht senden</button>
           </div>

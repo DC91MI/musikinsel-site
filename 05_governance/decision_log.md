@@ -1,5 +1,45 @@
 # Decision Log
 
+## 2026-06-14 - Batch 009 implementation decisions
+
+### Decision 1 - Switch email alerts from Netlify Forms to Formspree
+
+**Context.** Batch 008 form submissions reached Netlify Forms, but Netlify email notifications required a paid Netlify plan in the user's setup. The user created a Formspree form endpoint: `https://formspree.io/f/mdavygdk`.
+
+**Chosen direction.** The Kontakt form now posts to the Formspree endpoint. Netlify-specific attributes and hidden fields were removed from the public form markup.
+
+**Rationale.** Formspree's free plan starts at 50 submissions/month and supports email targets, which is sufficient for the expected low-volume contact form.
+
+**Impact.** Formspree becomes the active production submission/email-alert provider. Netlify Forms documentation is retained only as historical setup context.
+
+### Decision 2 - Preserve `/danke/` with a small JavaScript enhancement
+
+**Context.** Formspree's dashboard thank-you redirect is not available on the free plan. A plain HTML POST would therefore send visitors to Formspree's default thank-you page.
+
+**Chosen direction.** Added a small `data-formspree-form` submit handler in `main.js` that posts `FormData` to Formspree with `Accept: application/json`, then redirects the visitor to `/danke/` when Formspree returns success.
+
+**Rationale.** This keeps the free plan and preserves the site's existing success page without adding a framework, build step, or external JavaScript dependency. If JavaScript fails, the form still has a normal HTML POST fallback to Formspree.
+
+**Impact.** `main.js` now has a narrowly scoped form handler in addition to the existing navigation/slideshow behavior.
+
+### Decision 3 - Use Formspree's `_gotcha` honeypot
+
+**Context.** Batch 008 used Netlify's `bot-field` honeypot. Formspree documents `_gotcha` as its honeypot field and makes it available on all plans.
+
+**Chosen direction.** Replaced `bot-field` with `_gotcha` while keeping the existing visually hidden `.form-hidden` utility and keyboard/autofill protections.
+
+**Impact.** Spam trap behavior now matches Formspree's documented static form convention.
+
+### Decision 4 - Keep one shared Kontakt form for Raumvermietung
+
+**Context.** The Raumvermietung page already routes users to Kontakt and the `Thema` dropdown includes `Raumvermietung`.
+
+**Chosen direction.** No separate Raumvermietung form was added.
+
+**Impact.** General contact and room-rental inquiries arrive through the same Formspree form and are distinguished by the `fach` field.
+
+---
+
 ## 2026-05-10 - Batch 008 implementation decisions
 
 ### Decision 1 - Honeypot uses a clip-rect utility, not `display: none`

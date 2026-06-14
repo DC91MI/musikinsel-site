@@ -909,7 +909,7 @@ textarea { min-height: 160px; resize: vertical; }
   margin: 0;
 }
 
-/* === BATCH 008: Netlify Forms honeypot === */
+/* === BATCH 009: Formspree form handling === */
 
 .form-hidden {
   position: absolute;
@@ -920,4 +920,10 @@ textarea { min-height: 160px; resize: vertical; }
   margin: -1px;
   padding: 0;
   border: 0;
+}
+
+.form-status {
+  margin: 1rem 0 0;
+  color: #8a2f1a;
+  font-weight: 500;
 }

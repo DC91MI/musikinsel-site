@@ -341,3 +341,97 @@ Production verification is still required after deploy:
 ### Verdict
 
 Batch 008 is **clean in code review**. I found **no blocking issues and no should-fix code gaps** in the inspected scope. Final acceptance still depends on the human owner deploying and completing the Netlify dashboard plus real-submission test described in `06_deploy/netlify_forms_setup.md`.
+
+## Batch 009 Formspree Email Alerts Review Synthesis (2026-06-14)
+
+### Blocking Issues
+
+None found in the active code path.
+
+The Kontakt form points to `https://formspree.io/f/mdavygdk`, uses `method="POST"`, retains `name="kontakt"`, includes `data-formspree-form` and `data-success-url="/danke/"`, and contains the Formspree `_gotcha` honeypot. Netlify-only active form markers (`data-netlify`, `netlify-honeypot`, hidden `form-name`, `bot-field`) are absent from `kontakt.html`.
+
+### Should-Fix Before Close
+
+- `03_build/implementation_plan.md` still contains a stale scope bullet saying `no external form provider` in the Batch 009 goal block, even though the same block correctly states that Formspree is the selected provider. This is a documentation inconsistency, not a code blocker, but it means the prior verification pass missed one stale artifact line.
+
+### Verified In Code
+
+- `legacy_site/site/kontakt.html`
+  - form action is exactly `https://formspree.io/f/mdavygdk`
+  - `_gotcha` honeypot exists inside `.form-hidden` with `tabindex="-1"` and `autocomplete="off"`
+  - visible field order and names remain `name`, `email`, `fach`, `nachricht`
+  - `name`, `email`, and `nachricht` remain required; `fach` remains defaulted/not required
+  - `Thema` options remain `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`, `Gruppenunterricht`, `Raumvermietung`
+  - status region exists with `data-form-status` and `aria-live="polite"`
+  - submit button remains `Nachricht senden`
+- `legacy_site/site/assets/js/main.js`
+  - `node --check` passes
+  - handler is scoped to `document.querySelector('[data-formspree-form]')`
+  - `checkValidity()` runs before `preventDefault()`
+  - valid submits POST `new FormData(formspreeForm)` to `formspreeForm.action`
+  - request includes `Accept: application/json`
+  - success redirects through `formspreeForm.dataset.successUrl || '/danke/'`
+  - non-ok and network-failure paths show German fallback text with `musikinsel-leipzig@gmx.de`
+  - submit button is disabled/relabeled while sending and restored in `finally`
+  - handler sits before the slideshow guard, so non-homepage form behavior is not skipped
+- `legacy_site/site/assets/css/styles.css`
+  - `.form-hidden` uses the existing clip/1px visually-hidden recipe
+  - `.form-status` is minimal
+  - no `display: none` or `visibility: hidden` is used in the honeypot rule
+- `legacy_site/site/danke/index.html`
+  - exists at `danke/index.html`
+  - uses `../` asset and navigation paths
+  - includes `noindex`, the standard shell, direct-email fallback, `Zur Startseite`, `Zuruck zum Kontakt`, and `../assets/js/main.js`
+- `legacy_site/site/raumvermietung.html`
+  - still links `Anfrage senden` to `kontakt.html`
+  - no second form or separate endpoint was added
+
+### Docs And Governance
+
+- `03_build/batch_009_rails.md` matches the active implementation.
+- `03_build/implementation_plan.md` correctly records Milestones 1-3 as DONE and Milestone 4 as PENDING DEPLOY, but has the stale `no external form provider` bullet noted above.
+- `03_build/qa_checklist.md` includes the Batch 009 Formspree checks.
+- `05_governance/decision_log.md` records the switch to Formspree, the small-JS `/danke/` preservation, the `_gotcha` honeypot, and the shared Raumvermietung flow.
+- `06_deploy/nontechnical_formspree_check_guide.md` is the current non-technical operator guide.
+- `06_deploy/publish_process.md` points to the Formspree guide.
+- `06_deploy/netlify_forms_setup.md` is clearly marked as historical Batch 008 context and points forward to the Formspree guide.
+- `06_deploy/nontechnical_netlify_deploy_guide.md` does not exist. The only remaining repo-wide text match for that filename is in the Batch 009 review prompt itself, where it is part of the search instruction.
+
+### Local Checks
+
+- `node --check legacy_site/site/assets/js/main.js` passed.
+- Local HTTP checks passed:
+  - `/kontakt.html` -> 200
+  - `/danke/` -> 200
+  - `/raumvermietung.html` -> 200
+- `kontakt.html` contains one Formspree endpoint match and one `_gotcha` match.
+
+### Verification-Quality Note
+
+The coding agent's conclusion that no implementation fixes were needed mostly holds for the active HTML/CSS/JS. It did not fully hold for artifacts: the stale `no external form provider` line in `03_build/implementation_plan.md` should have been caught during the doc consistency pass.
+
+### Production Checks Still Required
+
+Final acceptance still requires the human owner to test the deployed site from `musikinsel-leipzig.de`:
+
+- submit a live Kontakt message
+- confirm redirect to `/danke/`
+- confirm the submission appears in Formspree
+- confirm the email alert arrives at `musikinsel-leipzig@gmx.de`
+- confirm Formspree domain restriction is set to `musikinsel-leipzig.de`
+- test Raumvermietung end to end: `Anfrage senden` -> choose `Raumvermietung` -> submit -> `/danke/` -> Formspree/email
+
+### Nice-To-Have / Next Batch
+
+- Fix the stale implementation-plan bullet.
+- Consider a `?fach=Raumvermietung` preselect helper if a tiny extra JS enhancement is acceptable.
+- Consider a privacy/Datenschutz note for the third-party form processor; this should get human/legal review for a German/EU site.
+- Consider a short response-time hint on the Kontakt form.
+
+### Questions For The Client
+
+None for code review. The open item is production verification after deployment.
+
+### Follow-Up Amendment
+
+The only should-fix from this review, the stale `no external form provider` bullet in `03_build/implementation_plan.md`, was corrected to `no additional form provider beyond the selected Formspree endpoint`. No further review cycle is needed for this minor documentation fix.
