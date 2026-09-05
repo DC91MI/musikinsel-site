@@ -1,5 +1,43 @@
 # Decision Log
 
+## 2026-09-05 - Batch 010 implementation decisions
+
+### Decision 1 - Remove the public Raumvermietung section
+
+**Context.** The user asked to remove the room-rental (Raumvermietung) offering from the website.
+
+**Chosen direction.** Removed the `Raumvermietung` nav item from all eight active pages and deleted `legacy_site/site/raumvermietung.html`. Image assets that were used only on that page were left in place (no direct acceptance gate required their removal).
+
+**Rationale.** The offering is being retired from the public site; deleting the page and its nav entry is the cleanest way to stop surfacing it while keeping the change reversible via git history.
+
+**Impact.** Nav is now six items: `Team`, `Instrumente`, `Gebühren`, `Veranstaltungen`, `Kontakt`, `Impressum`. `/raumvermietung.html` returns 404. This supersedes Batch 009 Decision 4 (shared Kontakt form for Raumvermietung): there is no longer a Raumvermietung inquiry path to preserve.
+
+### Decision 2 - Remove `Raumvermietung` from the Kontakt `Thema` selector
+
+**Context.** With the Raumvermietung page retired, the `Raumvermietung` option in the contact-form topic selector is obsolete.
+
+**Chosen direction.** Removed only the `Raumvermietung` option. Kept the `fach` field and the other options; did not re-add `Musiktheorie`.
+
+**Impact.** `Thema` options are now `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`, `Gruppenunterricht`.
+
+### Decision 3 - Add an optional phone field to the Kontakt form
+
+**Context.** The user wants visitors to be able to provide a phone number in addition to email.
+
+**Chosen direction.** Added a `Telefon` field (`id`/`name` = `telefon`) after `E-Mail`, before `Thema`, using `type="tel"` (not `type="number"`) with `inputmode="tel"`, `autocomplete="tel"`, and `pattern="[0-9+()\s/-]{6,}"`. The field is optional; required fields remain `name`, `email`, `nachricht`.
+
+**Rationale.** Phone numbers are not mathematical numbers; German/international numbers use `+`, spaces, `/`, `-`, and parentheses. `type="tel"` with a lenient pattern accepts real formatting while rejecting clearly unrelated text. Kept optional per the request.
+
+**Impact.** No JavaScript change was needed — `FormData(formspreeForm)` already submits `telefon` to Formspree when filled.
+
+### Decision 4 - Keep Formspree unchanged
+
+**Context.** The Batch 009 Formspree integration is working in production.
+
+**Chosen direction.** Preserved the endpoint, `method="POST"`, `data-formspree-form`, `data-success-url="/danke/"`, the `_gotcha` honeypot, and the status area. No provider, endpoint, or handler changes.
+
+**Impact.** Form behavior and success UX are unchanged apart from the added optional field and the removed topic option.
+
 ## 2026-06-14 - Batch 009 implementation decisions
 
 ### Decision 1 - Switch email alerts from Netlify Forms to Formspree

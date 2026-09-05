@@ -29,7 +29,8 @@ At minimum:
 - a real production submission redirects to `/danke/`
 - submission appears in Formspree
 - Formspree email alert arrives at `musikinsel-leipzig@gmx.de`
-- Raumvermietung flow works through the same Kontakt form
+- when the optional `Telefon` field is filled, its value appears in the Formspree submission and email
+- navigation shows no `Raumvermietung` tab and `/raumvermietung.html` is gone
 
 ## Rollback
 

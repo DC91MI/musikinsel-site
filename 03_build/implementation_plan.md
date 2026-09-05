@@ -2,6 +2,50 @@
 
 ## Goal
 
+Batch 010 for the Musikinsel Leipzig static site in `legacy_site/site/`: remove the public Raumvermietung (room-rental) section and add an optional phone field to the Kontakt form, while keeping the Batch 009 Formspree integration intact.
+
+This batch stays inside the existing static-site system:
+
+- no framework, bundler, backend, or Netlify Functions
+- no provider or endpoint change (Formspree `https://formspree.io/f/mdavygdk` stays active)
+- no JavaScript changes (`FormData` already carries the new field)
+- no unrelated content, design, typography, or palette changes
+
+## Current Status
+
+- Batch 010 code work is implemented; production verification is pending the next deploy.
+- The `Raumvermietung` nav item has been removed from all eight active pages. Nav is now exactly `Team`, `Instrumente`, `Gebühren`, `Veranstaltungen`, `Kontakt`, `Impressum`.
+- `legacy_site/site/raumvermietung.html` has been deleted; `/raumvermietung.html` returns 404 locally. No active internal link points to it.
+- `legacy_site/site/kontakt.html` `Thema` options are now `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`, `Gruppenunterricht` (no `Raumvermietung`, no `Musiktheorie`).
+- `legacy_site/site/kontakt.html` now has an optional `Telefon` field (`id`/`name` = `telefon`, `type="tel"`) between `E-Mail` and `Thema`. Required fields remain `name`, `email`, `nachricht`.
+- Formspree markers preserved: endpoint, `method="POST"`, `data-formspree-form`, `data-success-url="/danke/"`, `_gotcha`, status area.
+- `main.js` is unchanged; `FormData(formspreeForm)` includes `telefon` when filled.
+- Operator docs (`06_deploy/nontechnical_formspree_check_guide.md`, `06_deploy/publish_process.md`) no longer instruct a Raumvermietung end-to-end test and now include the optional phone-field check.
+
+## Batch 010 Milestones
+
+### Milestone 1 - Remove Raumvermietung from the public site - DONE
+- Nav item removed across all eight active pages; `raumvermietung.html` deleted.
+
+### Milestone 2 - Trim the Kontakt `Thema` selector - DONE
+- `Raumvermietung` option removed; `fach` field kept; `Musiktheorie` not re-added.
+
+### Milestone 3 - Add optional phone field - DONE
+- `type="tel"` phone input added after E-Mail, before Thema, with a lenient `pattern` for German/international formatting; field is optional.
+
+### Milestone 4 - Preserve Formspree behavior - DONE
+- Endpoint, honeypot, status area, and `/danke/` redirect unchanged; no JS edits.
+
+### Milestone 5 - Update current artifacts - DONE
+- Rails, implementation plan, QA checklist, decision log, operator guide, publish process, and handoff context updated for Batch 010.
+
+### Milestone 6 - Production verification - PENDING DEPLOY
+- Live submission with the optional phone filled must confirm `/danke/`, the Formspree submission (including `telefon`), and the email alert at `musikinsel-leipzig@gmx.de`.
+
+---
+
+## Previous Goal - Batch 009
+
 Prepare Batch 009 for the Musikinsel Leipzig static site in `legacy_site/site/` as a narrowly scoped switch from Netlify Forms storage to Formspree email-alert handling.
 
 Batch 008 proved form submission could reach Netlify Forms, but the user found that Netlify email notifications require a paid plan in their setup. The selected free provider is Formspree, using endpoint `https://formspree.io/f/mdavygdk`.

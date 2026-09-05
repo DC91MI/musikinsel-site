@@ -40,10 +40,11 @@ Open these pages:
 https://musikinsel-leipzig.de/
 https://musikinsel-leipzig.de/kontakt
 https://musikinsel-leipzig.de/danke/
-https://musikinsel-leipzig.de/raumvermietung.html
 ```
 
 Check that the pages load, the logo is visible, the Kontakt form is visible, and the Danke page says the message was received.
+
+The navigation should show exactly: `Team`, `Instrumente`, `Gebühren`, `Veranstaltungen`, `Kontakt`, `Impressum`. There should be no `Raumvermietung` tab.
 
 ## Step 3 - Send A Real Test Message
 
@@ -56,6 +57,7 @@ https://musikinsel-leipzig.de/kontakt
 2. Fill in:
    - Name: `Test`
    - E-Mail: your own email address
+   - Telefon: any real-looking number, for example `+49 341 1234567` (this field is optional)
    - Thema: `Allgemein`
    - Nachricht: `Testnachricht. Bitte ignorieren.`
 
@@ -71,37 +73,23 @@ https://musikinsel-leipzig.de/danke/
 1. In Formspree, open the `kontakt` form.
 2. Open **Submissions**.
 3. Confirm the test message appears.
-4. Open the inbox for `musikinsel-leipzig@gmx.de`.
-5. Confirm the Formspree notification email arrives.
-6. If the email is missing, check spam.
+4. Confirm the submission includes the `telefon` value you entered.
+5. Open the inbox for `musikinsel-leipzig@gmx.de`.
+6. Confirm the Formspree notification email arrives and shows the phone number.
+7. If the email is missing, check spam.
 
 If the message appears in Formspree but no email arrives, the website form is working and the email/notification setup needs attention.
-
-## Step 5 - Test Raumvermietung
-
-1. Open:
-
-```text
-https://musikinsel-leipzig.de/raumvermietung.html
-```
-
-2. Click **Anfrage senden**.
-3. Fill in the Kontakt form.
-4. Choose `Raumvermietung` as the Thema.
-5. Submit.
-6. Confirm `/danke/`, Formspree submission, and email alert.
 
 ## Final Checklist
 
 - [ ] Homepage loads
 - [ ] Kontakt page loads
 - [ ] Danke page loads at `/danke/`
+- [ ] Navigation shows no `Raumvermietung` tab
 - [ ] Formspree endpoint is `https://formspree.io/f/mdavygdk`
 - [ ] Restrict to Domain is `musikinsel-leipzig.de`
 - [ ] Email alert goes to `musikinsel-leipzig@gmx.de`
-- [ ] General test redirects to `/danke/`
-- [ ] General test appears in Formspree
-- [ ] General test email arrives
-- [ ] Raumvermietung test redirects to `/danke/`
-- [ ] Raumvermietung test appears in Formspree
-- [ ] Raumvermietung test email arrives
+- [ ] Test redirects to `/danke/`
+- [ ] Test appears in Formspree
+- [ ] Test email arrives
+- [ ] The optional `Telefon` value appears in the Formspree submission and email when filled

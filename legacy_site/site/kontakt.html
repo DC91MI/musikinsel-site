@@ -30,7 +30,6 @@
         <li><a data-nav href="team.html">Team</a></li>
         <li><a data-nav href="instrumente.html">Instrumente</a></li>
         <li><a data-nav href="gebuehren.html">Gebühren</a></li>
-        <li><a data-nav href="raumvermietung.html">Raumvermietung</a></li>
         <li><a data-nav href="news.html">Veranstaltungen</a></li>
         <li><a data-nav href="kontakt.html">Kontakt</a></li>
         <li><a data-nav href="impressum.html">Impressum</a></li>
@@ -71,6 +70,18 @@
               <label for="email">E-Mail</label>
               <input id="email" name="email" type="email" placeholder="name@beispiel.de" required>
             </div>
+            <div>
+              <label for="telefon">Telefon</label>
+              <input
+                id="telefon"
+                name="telefon"
+                type="tel"
+                inputmode="tel"
+                autocomplete="tel"
+                placeholder="+49 ..."
+                pattern="[0-9+()\s/-]{6,}"
+                title="Bitte geben Sie eine gültige Telefonnummer ein. Erlaubt sind Zahlen, Leerzeichen, +, /, - und Klammern.">
+            </div>
             <div class="form-full">
               <label for="fach">Thema</label>
               <select id="fach" name="fach">
@@ -80,7 +91,6 @@
                 <option>Gitarre</option>
                 <option>Cello</option>
                 <option>Gruppenunterricht</option>
-                <option>Raumvermietung</option>
               </select>
             </div>
             <div class="form-full">

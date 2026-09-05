@@ -435,3 +435,91 @@ None for code review. The open item is production verification after deployment.
 ### Follow-Up Amendment
 
 The only should-fix from this review, the stale `no external form provider` bullet in `03_build/implementation_plan.md`, was corrected to `no additional form provider beyond the selected Formspree endpoint`. No further review cycle is needed for this minor documentation fix.
+
+## Batch 010 Remove Raumvermietung And Add Phone Field Review Synthesis (2026-09-05)
+
+### Blocking Issues
+
+None found.
+
+The active public site no longer exposes Raumvermietung in navigation, `legacy_site/site/raumvermietung.html` is deleted, the Kontakt topic selector no longer includes `Raumvermietung`, and the Formspree contact flow remains intact.
+
+### Should-Fix Before Close
+
+One small current-doc inconsistency was found and fixed during review:
+
+- `prompts/for_coding_agent/000_project_handoff_context.md` had an obsolete general Quality Bar bullet saying future form work should verify that the Raumvermietung inquiry path still works. That contradicted the new Batch 010 state. It now says retired inquiry paths, such as the old Raumvermietung flow, should not remain in active navigation or operator docs.
+
+No further should-fix items remain from this review.
+
+### Verified In Code
+
+- Navigation:
+  - `index.html`, `team.html`, `instrumente.html`, `gebuehren.html`, `news.html`, `kontakt.html`, `impressum.html`, and `danke/index.html` all have the same six-item nav: `Team`, `Instrumente`, `Gebühren`, `Veranstaltungen`, `Kontakt`, `Impressum`.
+  - No active nav item links to `raumvermietung.html`.
+  - Search under `legacy_site/site` found no `Raumvermietung` or `raumvermietung` references.
+- Retired page:
+  - `legacy_site/site/raumvermietung.html` no longer exists.
+  - Local server returns 404 for `/raumvermietung.html`.
+- Kontakt form:
+  - Formspree endpoint is still `https://formspree.io/f/mdavygdk`.
+  - `method="POST"`, `data-formspree-form`, `data-success-url="/danke/"`, `_gotcha`, and `data-form-status aria-live="polite"` are preserved.
+  - `Thema` selector keeps `id="fach"` and `name="fach"`.
+  - `Thema` options are exactly `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`, `Gruppenunterricht`.
+  - `Raumvermietung` is absent and `Musiktheorie` was not re-added.
+  - `Telefon` field is visible after E-Mail and before Thema, with `label for="telefon"`, `id="telefon"`, `name="telefon"`, `type="tel"`, `inputmode="tel"`, `autocomplete="tel"`, German title text, and a lenient phone pattern.
+  - `Telefon` is optional; required fields remain `name`, `email`, and `nachricht`.
+- JavaScript:
+  - `main.js` was unchanged by this batch.
+  - `node --check legacy_site/site/assets/js/main.js` passed.
+  - The existing `new FormData(formspreeForm)` submit path will include `telefon` when filled.
+- Assets/styles:
+  - No image assets were removed.
+  - No CSS changes were introduced by Batch 010.
+
+### Docs And Governance
+
+- `03_build/batch_010_rails.md` exists and matches the shipped changes.
+- `03_build/implementation_plan.md` has a top Batch 010 block, Milestones 1-5 DONE, and Milestone 6 PENDING DEPLOY.
+- `03_build/qa_checklist.md` includes Batch 010 gates for six-item nav, deleted Raumvermietung page, trimmed Thema options, optional Telefon, preserved Formspree flow, and post-deploy test.
+- `05_governance/decision_log.md` has a top `2026-09-05 - Batch 010 implementation decisions` block and explicitly supersedes the old Batch 009 Raumvermietung flow decision.
+- `06_deploy/nontechnical_formspree_check_guide.md` no longer includes a Raumvermietung test and now asks the operator to fill/check the optional phone number.
+- `06_deploy/publish_process.md` no longer lists Raumvermietung flow verification and now includes phone-field verification.
+- `prompts/for_coding_agent/000_project_handoff_context.md` now reflects the six-item nav, deleted Raumvermietung page, trimmed topic list, and optional phone field.
+
+### Local Checks
+
+- `node --check legacy_site/site/assets/js/main.js` passed.
+- Local HTTP checks passed:
+  - `/index.html` -> 200
+  - `/kontakt.html` -> 200
+  - `/danke/` -> 200
+  - `/raumvermietung.html` -> 404
+- Nav extraction confirmed the same six-item nav across all active pages.
+- Search confirmed no active `Raumvermietung` references remain under `legacy_site/site`.
+- Search confirmed `kontakt.html` contains `telefon`, `type="tel"`, the Formspree endpoint, `_gotcha`, `data-formspree-form`, `data-success-url`, and `data-form-status`.
+- Checked for collapsed `</li> <li>` nav markup after the reported CRLF repair; no matches found.
+
+### Verification-Quality Note
+
+The coding agent's implementation summary holds up under independent review for the active code and current operator docs. The only missed item was the stale handoff Quality Bar bullet, which was corrected during this review.
+
+### Production Checks Still Required
+
+Final acceptance requires deploying Batch 010 and sending one real Kontakt test from the deployed domain:
+
+- fill `Telefon` with a real-looking number
+- submit successfully
+- confirm redirect to `/danke/`
+- confirm the Formspree submission includes `telefon`
+- confirm the email alert at `musikinsel-leipzig@gmx.de` includes the phone value
+- confirm the public nav shows no Raumvermietung tab
+- confirm `/raumvermietung.html` is gone on production
+
+### Nice-To-Have / Next Batch
+
+- Consider a small privacy/Datenschutz note for Formspree as the third-party processor, with human/legal review for the German/EU context.
+
+### Questions For The Client
+
+None for code review.

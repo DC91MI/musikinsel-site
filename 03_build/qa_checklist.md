@@ -107,6 +107,22 @@
 - [ ] After deploy, a production test email arrives at `musikinsel-leipzig@gmx.de`
 - [ ] Raumvermietung test works through the same Kontakt form
 
+## Batch 010 Remove Raumvermietung And Add Phone Field
+- [ ] No active public page nav contains `Raumvermietung`
+- [ ] Nav order on every active page is `Team`, `Instrumente`, `Gebühren`, `Veranstaltungen`, `Kontakt`, `Impressum`
+- [ ] `legacy_site/site/raumvermietung.html` is deleted and `/raumvermietung.html` returns 404
+- [ ] No active internal link points to `raumvermietung.html`
+- [ ] Kontakt `Thema` options are exactly `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`, `Gruppenunterricht`
+- [ ] `Musiktheorie` is not present in the `Thema` selector
+- [ ] Kontakt form has an optional `Telefon` field with `id="telefon"` and `name="telefon"`
+- [ ] Phone field uses `type="tel"` and accepts `+49`, spaces, `/`, `-`, and parentheses
+- [ ] Phone field is optional; `name`, `email`, and `nachricht` remain required
+- [ ] Tab order is `Name` -> `E-Mail` -> `Telefon` -> `Thema` -> `Nachricht` -> submit
+- [ ] Formspree endpoint `https://formspree.io/f/mdavygdk`, `_gotcha`, and `/danke/` redirect are unchanged
+- [ ] Adding the phone field does not break Kontakt layout on desktop or mobile
+- [ ] After deploy, a production test with the phone field filled includes `telefon` in the Formspree submission and email
+- [ ] No obsolete Raumvermietung test remains in current operator documentation
+
 ## Accessibility and Responsiveness
 - [ ] Navigation remains keyboard-usable
 - [ ] Embedded map does not overflow on narrow screens

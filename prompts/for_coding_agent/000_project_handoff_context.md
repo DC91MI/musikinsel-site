@@ -91,11 +91,12 @@ The active site is plain static HTML/CSS/JS:
 - `legacy_site/site/gebuehren.html`
 - `legacy_site/site/news.html`
 - `legacy_site/site/kontakt.html`
-- `legacy_site/site/raumvermietung.html`
 - `legacy_site/site/impressum.html`
 - `legacy_site/site/danke/index.html`
 - `legacy_site/site/assets/css/styles.css`
 - `legacy_site/site/assets/js/main.js`
+
+Batch 010 removed the public Raumvermietung section: `legacy_site/site/raumvermietung.html` was deleted and the `Raumvermietung` nav item was removed from every active page. The current primary navigation is exactly `Team`, `Instrumente`, `Gebühren`, `Veranstaltungen`, `Kontakt`, `Impressum`.
 
 There is no framework, no bundler, no backend, and no build step.
 
@@ -130,8 +131,14 @@ Current behavior:
 - Netlify Forms can detect the earlier Batch 008 form, but Netlify email notifications required a paid plan in the user's setup.
 - Formspree is now the provider to test for production contact submissions.
 - `/danke/` exists as the success page.
-- Raumvermietung still routes through the same Kontakt form; the visitor manually chooses `Raumvermietung` in the `Thema` dropdown.
 - Formspree's dashboard should be restricted to `musikinsel-leipzig.de`.
+
+Batch 010 updated the Kontakt form:
+
+- The Raumvermietung page and its `Thema` option were removed, so there is no longer a Raumvermietung inquiry path.
+- The `Thema` (`fach`) options are now `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`, `Gruppenunterricht`.
+- An optional `Telefon` field (`id`/`name` = `telefon`, `type="tel"`) was added between `E-Mail` and `Thema`. Required fields remain `name`, `email`, `nachricht`.
+- No JavaScript change was needed; `FormData(formspreeForm)` submits `telefon` when filled.
 
 Do not assume the Netlify email-alert path is viable unless a future prompt explicitly says to return to Netlify paid notifications.
 
@@ -224,7 +231,7 @@ For form-provider work, verify:
 - spam trap still exists if supported
 - required fields still work
 - visible field names and German labels remain stable
-- Raumvermietung inquiry path still works
+- retired inquiry paths, such as the old Raumvermietung flow, do not remain in active navigation or operator docs
 - no unrelated Batch 007 content regresses
 - documentation clearly tells a non-technical user how to test the live form
 
