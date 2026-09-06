@@ -523,3 +523,87 @@ Final acceptance requires deploying Batch 010 and sending one real Kontakt test 
 ### Questions For The Client
 
 None for code review.
+
+## Batch 011 Remove Gruppenunterricht Card And Topic Review Synthesis (2026-09-06)
+
+### Blocking Issues
+
+None found.
+
+The requested Gebühren card is gone, the Kontakt `Thema` selector no longer includes `Gruppenunterricht`, and the Formspree contact flow plus Batch 010 phone field remain intact.
+
+### Should-Fix Before Close
+
+None.
+
+### Verified In Code
+
+- `legacy_site/site/gebuehren.html`
+  - removed the entire card headed `Klavier, Cello und Gitarre - Gruppenunterricht`
+  - removed that card's `pricing-table-single` markup
+  - removed the deleted card's `50 Minuten Gruppenunterricht` label
+  - removed the deleted card's `35€ pro Monat` value
+  - kept the remaining Gebühren cards in coherent order: `Violine, Klavier, Gitarre und Cello`, `Violine – Einzel- und Gruppenunterricht`, `Konditionen`
+  - kept the separate `Violine – Einzel- und Gruppenunterricht` card as required
+- `legacy_site/site/kontakt.html`
+  - `select id="fach" name="fach"` remains present and optional
+  - `Thema` options are exactly `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`
+  - `Gruppenunterricht`, `Raumvermietung`, and `Musiktheorie` are absent from the selector
+  - Formspree endpoint remains `https://formspree.io/f/mdavygdk`
+  - `method="POST"`, `data-formspree-form`, `data-success-url="/danke/"`, `_gotcha`, and the `data-form-status` / `aria-live="polite"` status area are preserved
+  - optional `Telefon` field remains with `id="telefon"`, `name="telefon"`, and `type="tel"`
+  - `name`, `email`, and `nachricht` remain required; `telefon` and `fach` remain optional
+- `legacy_site/site/assets/js/main.js`
+  - unchanged by this batch
+  - `node --check` passed
+  - `new FormData(formspreeForm)` remains the submit path and will continue sending all present fields
+- `legacy_site/site/assets/css/styles.css`
+  - unchanged by this batch
+  - `.pricing-table-single` rules remain in CSS only; this matches the documented decision to avoid unrelated cleanup
+- Batch 010 preservation:
+  - `legacy_site/site/raumvermietung.html` still does not exist
+  - `/raumvermietung.html` returns 404 locally
+
+### Docs And Governance
+
+- `03_build/batch_011_rails.md` exists and matches the shipped changes.
+- `03_build/implementation_plan.md` has a top Batch 011 block, Milestones 1-4 DONE, and Milestone 5 PENDING DEPLOY.
+- `03_build/qa_checklist.md` includes Batch 011 checks for the removed Gebühren card, five-option topic selector, preserved Formspree path, preserved phone field, and deploy-time Formspree test.
+- `05_governance/decision_log.md` has a top `2026-09-06 - Batch 011 implementation decisions` block.
+- `prompts/for_coding_agent/000_project_handoff_context.md` reflects the current Gebühren cards and five `Thema` options.
+- `06_deploy/nontechnical_formspree_check_guide.md` and `06_deploy/publish_process.md` do not instruct choosing `Gruppenunterricht`; they were correctly left unchanged for this batch.
+
+### Local Checks
+
+- `node --check legacy_site/site/assets/js/main.js` passed.
+- Search checks passed:
+  - no `Klavier, Cello und Gitarre - Gruppenunterricht`, `35€ pro Monat`, `50 Minuten Gruppenunterricht`, or `pricing-table-single` remain in `gebuehren.html`
+  - no `<option>Gruppenunterricht</option>`, `<option>Raumvermietung</option>`, or `<option>Musiktheorie</option>` remain in `kontakt.html`
+  - `kontakt.html` still contains the Formspree endpoint, `_gotcha`, `telefon`, and `type="tel"`
+- Local HTTP checks passed:
+  - `/gebuehren.html` -> 200
+  - `/kontakt.html` -> 200
+  - `/danke/` -> 200
+  - `/raumvermietung.html` -> 404
+
+### Verification-Quality Note
+
+The coding agent's completion summary holds up under independent review. No missed implementation items, stale current-doc blockers, or scope creep were found.
+
+### Production Checks Still Required
+
+Final acceptance requires deploying Batch 011 and sending one real Kontakt test from the deployed domain:
+
+- choose one remaining `Thema` option
+- submit successfully
+- confirm redirect to `/danke/`
+- confirm the submission appears in Formspree
+- confirm the email alert arrives at `musikinsel-leipzig@gmx.de`
+
+### Nice-To-Have / Next Batch
+
+None specific to this batch.
+
+### Questions For The Client
+
+None.

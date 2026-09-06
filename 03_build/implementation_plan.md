@@ -2,6 +2,45 @@
 
 ## Goal
 
+Batch 011 for the Musikinsel Leipzig static site in `legacy_site/site/`: remove the Gebühren pricing card titled `Klavier, Cello und Gitarre - Gruppenunterricht` and remove the `Gruppenunterricht` option from the Kontakt `Thema` selector, while keeping the Batch 009 Formspree integration and Batch 010 phone-field / Raumvermietung removal intact.
+
+This batch stays inside the existing static-site system:
+
+- no framework, bundler, backend, or Netlify Functions
+- no provider or endpoint change (Formspree `https://formspree.io/f/mdavygdk` stays active)
+- no JavaScript changes (`FormData` still carries all fields)
+- no unrelated navigation, content, design, typography, or palette changes
+
+## Current Status
+
+- Batch 011 code work is implemented; production verification is pending the next deploy.
+- `legacy_site/site/gebuehren.html` no longer contains the `Klavier, Cello und Gitarre - Gruppenunterricht` card (its `50 Minuten Gruppenunterricht` / `35€ pro Monat` single table is gone). Remaining pricing cards: `Violine, Klavier, Gitarre und Cello`, `Violine – Einzel- und Gruppenunterricht`, `Konditionen`.
+- `legacy_site/site/kontakt.html` `Thema` (`fach`) options are now exactly `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello` (no `Gruppenunterricht`, `Raumvermietung`, or `Musiktheorie`).
+- The optional Batch 010 `Telefon` field and all Formspree markers (endpoint, `method="POST"`, `data-formspree-form`, `data-success-url="/danke/"`, `_gotcha`, status area) are preserved. `name`, `email`, `nachricht` remain required; `telefon` and `fach` remain optional.
+- `main.js` is unchanged; `FormData(formspreeForm)` still submits all fields.
+- No CSS rules were removed: `.pricing-table-single` remains in use by the styles and was left intact (no longer referenced by markup, but not clearly obsolete site-wide).
+
+## Batch 011 Milestones
+
+### Milestone 1 - Remove the Gruppenunterricht pricing card - DONE
+- The entire `Klavier, Cello und Gitarre - Gruppenunterricht` `.price-card` article was removed from `gebuehren.html`; surrounding spacing stays clean.
+
+### Milestone 2 - Trim the Kontakt `Thema` selector - DONE
+- `Gruppenunterricht` option removed; `fach` field kept and still optional.
+
+### Milestone 3 - Preserve Formspree and phone behavior - DONE
+- Endpoint, honeypot, status area, `/danke/` redirect, and optional `Telefon` field unchanged; no JS edits.
+
+### Milestone 4 - Update current artifacts - DONE
+- Rails, implementation plan, QA checklist, decision log, and handoff context updated for Batch 011.
+
+### Milestone 5 - Production verification - PENDING DEPLOY
+- Live submission using one of the remaining `Thema` options must confirm `/danke/`, the Formspree submission, and the email alert at `musikinsel-leipzig@gmx.de`.
+
+---
+
+## Previous Goal - Batch 010
+
 Batch 010 for the Musikinsel Leipzig static site in `legacy_site/site/`: remove the public Raumvermietung (room-rental) section and add an optional phone field to the Kontakt form, while keeping the Batch 009 Formspree integration intact.
 
 This batch stays inside the existing static-site system:

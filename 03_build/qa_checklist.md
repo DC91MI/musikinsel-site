@@ -123,6 +123,21 @@
 - [ ] After deploy, a production test with the phone field filled includes `telefon` in the Formspree submission and email
 - [ ] No obsolete Raumvermietung test remains in current operator documentation
 
+## Batch 011 Remove Gruppenunterricht Pricing Card And Topic
+- [ ] `gebuehren.html` no longer contains the card heading `Klavier, Cello und Gitarre - Gruppenunterricht`
+- [ ] `gebuehren.html` no longer contains `50 Minuten Gruppenunterricht` or the `35€ pro Monat` single-card pricing
+- [ ] Remaining Gebühren cards are `Violine, Klavier, Gitarre und Cello`, `Violine – Einzel- und Gruppenunterricht`, `Konditionen`, in that order
+- [ ] The `Violine – Einzel- und Gruppenunterricht` card is still present (not removed)
+- [ ] No awkward empty gap appears where the card was removed (desktop and mobile)
+- [ ] Kontakt `Thema` options are exactly `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`
+- [ ] `Gruppenunterricht`, `Raumvermietung`, and `Musiktheorie` are absent from the `Thema` selector
+- [ ] Formspree endpoint `https://formspree.io/f/mdavygdk`, `_gotcha`, `/danke/` redirect, and status area are unchanged
+- [ ] Optional `Telefon` field (`id`/`name` = `telefon`, `type="tel"`) is still present
+- [ ] `name`, `email`, `nachricht` remain required; `telefon` and `fach` remain optional
+- [ ] Tab order is `Name` -> `E-Mail` -> `Telefon` -> `Thema` -> `Nachricht` -> submit
+- [ ] `main.js` is unchanged and `node --check` passes
+- [ ] After deploy, a production test using one of the remaining `Thema` options redirects to `/danke/`, appears in Formspree, and emails `musikinsel-leipzig@gmx.de`
+
 ## Accessibility and Responsiveness
 - [ ] Navigation remains keyboard-usable
 - [ ] Embedded map does not overflow on narrow screens

@@ -136,9 +136,13 @@ Current behavior:
 Batch 010 updated the Kontakt form:
 
 - The Raumvermietung page and its `Thema` option were removed, so there is no longer a Raumvermietung inquiry path.
-- The `Thema` (`fach`) options are now `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`, `Gruppenunterricht`.
 - An optional `Telefon` field (`id`/`name` = `telefon`, `type="tel"`) was added between `E-Mail` and `Thema`. Required fields remain `name`, `email`, `nachricht`.
 - No JavaScript change was needed; `FormData(formspreeForm)` submits `telefon` when filled.
+
+Batch 011 further trimmed the site:
+
+- Removed the Gebühren pricing card `Klavier, Cello und Gitarre - Gruppenunterricht` (its `50 Minuten Gruppenunterricht` / `35€ pro Monat` table). Remaining pricing cards: `Violine, Klavier, Gitarre und Cello`, `Violine – Einzel- und Gruppenunterricht`, `Konditionen`.
+- Removed `Gruppenunterricht` from the Kontakt `Thema` selector. The `Thema` (`fach`) options are now `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`.
 
 Do not assume the Netlify email-alert path is viable unless a future prompt explicitly says to return to Netlify paid notifications.
 

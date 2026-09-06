@@ -1,5 +1,31 @@
 # Decision Log
 
+## 2026-09-06 - Batch 011 implementation decisions
+
+### Decision 1 - Remove the `Klavier, Cello und Gitarre - Gruppenunterricht` pricing card
+
+**Context.** The user asked to remove this specific group-lessons pricing card from the Gebühren page.
+
+**Chosen direction.** Deleted the entire `.price-card` article for `Klavier, Cello und Gitarre - Gruppenunterricht` (including its `50 Minuten Gruppenunterricht` label and `35€ pro Monat` value). Kept the other three cards, explicitly including the separate `Violine – Einzel- und Gruppenunterricht` card, which was not part of this request.
+
+**Impact.** Gebühren now shows `Violine, Klavier, Gitarre und Cello`, `Violine – Einzel- und Gruppenunterricht`, and `Konditionen`.
+
+### Decision 2 - Remove `Gruppenunterricht` from the Kontakt `Thema` selector
+
+**Context.** With the group-lessons card removed, the matching `Thema` topic is obsolete.
+
+**Chosen direction.** Removed only the `Gruppenunterricht` option. Kept the `fach` field optional; did not re-add `Raumvermietung` or `Musiktheorie`.
+
+**Impact.** `Thema` options are now `Allgemein`, `Violine`, `Klavier`, `Gitarre`, `Cello`.
+
+### Decision 3 - Leave `.pricing-table-single` CSS in place
+
+**Context.** The deleted card used the `.pricing-table-single` variant. No other active markup uses it now.
+
+**Chosen direction.** Kept the CSS rules. Per the batch scope, CSS is removed only when clearly obsolete; leaving the utility avoids an unrelated styling change and keeps the diff narrow and reversible.
+
+**Impact.** No CSS or `main.js` changes in this batch; Formspree and the optional `Telefon` field are untouched.
+
 ## 2026-09-05 - Batch 010 implementation decisions
 
 ### Decision 1 - Remove the public Raumvermietung section
